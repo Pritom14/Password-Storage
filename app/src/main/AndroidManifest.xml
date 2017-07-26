@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nitsilchar.hp.passwordStorage">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.nitsilchar.hp.passwordStorage.MainActivity"
+            android:label="@string/manifest_label_main"></activity>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.details"
+            android:label="Information">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nitsilchar.hp.passwordStorage.MainActivity"/>
+        </activity>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.Login_registration"></activity>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.Login"
+            android:label="@string/manifest_label_login"/>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.Registration"
+            android:label="@string/manifest_label_register"/>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="17f1fea763a098c9beeff1537f9e9c9b96034009"
+            />
+    </application>
+
+</manifest>

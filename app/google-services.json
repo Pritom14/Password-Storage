@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "948454726321",
+    "firebase_url": "https://passwordstorage-b156f.firebaseio.com",
+    "project_id": "passwordstorage-b156f",
+    "storage_bucket": "passwordstorage-b156f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948454726321:android:388df815a9ebdcfd",
+        "android_client_info": {
+          "package_name": "com.nitsilchar.hp.sample12"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948454726321-273knprlnhbmsim7s0pgeleib8qaglq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nitsilchar.hp.sample12",
+            "certificate_hash": "8a83a3b5eeaa3b7d73f01f39f0fa2bf68e75823b"
+          }
+        },
+        {
+          "client_id": "948454726321-iqoks7jvi0uupjf4ugubbueommtrjq9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdQeZ69dT59bO8A-KQBLSdfwIxZbXim-A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948454726321-iqoks7jvi0uupjf4ugubbueommtrjq9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948454726321:android:49757e8beeddeb97",
+        "android_client_info": {
+          "package_name": "com.nitsilchar.hp.passwordStorage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948454726321-eairmba4nn8de3hiu8hknom00gj5025i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nitsilchar.hp.passwordStorage",
+            "certificate_hash": "8a83a3b5eeaa3b7d73f01f39f0fa2bf68e75823b"
+          }
+        },
+        {
+          "client_id": "948454726321-iqoks7jvi0uupjf4ugubbueommtrjq9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdQeZ69dT59bO8A-KQBLSdfwIxZbXim-A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948454726321-iqoks7jvi0uupjf4ugubbueommtrjq9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

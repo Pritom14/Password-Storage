@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">Password Storage</string>
+
+    <string name="details_text_account">Account</string>
+    <string name="details_text_password">Password : **********</string>
+    <string name="details_enter_password">Enter your new password to modify</string>
+    <string name="details_modify">Modify</string>
+    <string name="details_text_password2">Password :</string>
+    <string name="details_cancel">Cancel</string>
+    <string name="details_show_password">Show password</string>
+    <string name="details_confirm">Confirm</string>
+    <string name="details_wrong_password">Wrong Password</string>
+
+    <string name="login_enter_email_password">Please enter your login Email Id and Password</string>
+    <string name="login_enter_emailid">Please enter your Email Id</string>
+    <string name="login_enter_password">Please enter your Password</string>
+    <string name="login_details_invalid">Details does not belongs to any account</string>
+    <string name="login_email_password_invalid">Either Email Id/Password is incorrect</string>
+    <string name="login_authentication_failed">Email Id is already registered</string>
+    <string name="login_successful_login">You have successfully logged in</string>
+    <string name="login_email_notverified">Email is not verified, check your inbox for confirmation</string>
+    <string name="login_email_not_found_in_device">We did not find any account with the given Email Id in this device</string>
+
+    <string name="registration_all_fields_mandatory">All fields are mandatory to fill</string>
+    <string name="registration_enterPass">Please enter your Password"</string>
+    <string name="registration_enterRePass">Please re-enter your Password</string>
+    <string name="registration_enter_email">Please enter your Email Id</string>
+    <string name="registration_pass_notmatch">The two passwords do not match</string>
+    <string name="registration_check_email_verify">Check your Email for verification</string>
+    <string name="registration_failed">Already an Email Id is registered with your given Email Id. Please use a different Email Id</string>
+    <string name="registration_successful">You have successfully registered</string>
+    <string name="registration_email_collision">User with this Email Id already exists.Please use a different Email Id</string>
+
+    <string name="main_acnt_info">Account Information</string>
+    <string name="main_add">Add</string>
+    <string name="main_added">Added </string>
+    <string name="main_empty_field">Empty Fields</string>
+    <string name="main_duplicate">You already have an account of that name in the list</string>
+    <string name="main_cancel">Cancel</string>
+    <string name="main_logout">You have successfully logged out</string>
+    <string name="main_sure_to_delete">Are you sure you want to delete </string>
+    <string name="main_confirm">Confirm</string>
+    <string name="main_delete">Deleted </string>
+    <string name="main_wrong_pass">Wrong Password</string>
+
+    <string name="main_xml_empty_text">Add information,click the \"+\" icon</string>
+
+    <string name="regstr_xml_email_hint">Email Id</string>
+    <string name="regstr_xml_pass_hint">Password</string>
+    <string name="regstr_xml_confirm_hint">Confirm Password</string>
+    <string name="regstr_xml_register_button">Sign Up</string>
+
+    <string name="delete_dialog_confirm">Enter your password</string>
+
+    <string name="add_dialog_addacnt">Your account name</string>
+    <string name="add_dialog_addpass">Your password</string>
+
+    <string name="details_dialog_apppass">Enter your app password</string>
+
+    <string name="modify_pass">Password</string>
+
+    <string name="login_regstr_blogin">Login</string>
+    <string name="login_regstr_bregstr">Sign Up</string>
+
+    <string name="login_xml_email_hint">Email Id</string>
+    <string name="login_xml_pass_hint">Password</string>
+    <string name="login_xml_blogin">Login</string>
+    <string name="login_xml_bregstr">Sign Up</string>
+
+    <string name="details_xml_acnt">Account</string>
+    <string name="details_xml_pass">Password</string>
+    <string name="details_xml_bshow">Show Password</string>
+    <string name="details_xml_bmodify">Modify</string>
+
+    <string name="manifest_label_main">Stored List</string>
+    <string name="manifest_label_login">Login</string>
+    <string name="manifest_label_register">Sign Up</string>
+
+    <string name="appstatus_no_connection">Please see to it that you have an active internet connection</string>
+
+
+
+
+</resources>
