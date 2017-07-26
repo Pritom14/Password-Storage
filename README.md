@@ -1,2 +1,2 @@
-#Password-Storage
-Android application to store all your passwords.
+# Password-Storage
+Android application for storing all your passwords.
