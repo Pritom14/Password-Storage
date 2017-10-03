@@ -30,6 +30,8 @@
     <string name="registration_failed">Already an Email Id is registered with your given Email Id. Please use a different Email Id</string>
     <string name="registration_successful">You have successfully registered</string>
     <string name="registration_email_collision">User with this Email Id already exists.Please use a different Email Id</string>
+    <string name="registration_error">Error </string>
+    <string name="registration_network_problem">Connection Problem</string>
 
     <string name="main_acnt_info">Account Information</string>
     <string name="main_add">Add</string>

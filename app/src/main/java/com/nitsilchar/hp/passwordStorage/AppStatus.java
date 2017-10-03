@@ -20,7 +20,7 @@ public class AppStatus {
     }
 
     public boolean isOnline(){
-        /*Runtime runtime=Runtime.getRuntime();
+        Runtime runtime=Runtime.getRuntime();
         try{
             Process ipProcess=runtime.exec("/system/bin/ping -c 1 8.8.8.8");
             int exitValue=ipProcess.waitFor();
@@ -31,10 +31,11 @@ public class AppStatus {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return false;*/
-        ConnectivityManager connectivityManager
+        return false;
+        /*ConnectivityManager connectivityManager
                 =(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();*/
+        //return true;
     }
 }
