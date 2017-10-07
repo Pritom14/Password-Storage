@@ -8,7 +8,11 @@ android:
     - android-25
 
   licenses:
-    - 'android-sdk-license-c81a61d9'
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_install:
+  - mkdir -p "$ANDROID_HOME/licenses"
+  - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
   - chmod +x gradlew
