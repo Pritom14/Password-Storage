@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.Adapter.PasswordListReyclerView;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -35,12 +41,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String SHARED_PREFS_NAME="MyPrefs";
     static ListView listView;
     TextView emptyText;
-    ArrayAdapter<String> adapter;
+   // ArrayAdapter<String> adapter;
     List<String> collection;
     ArrayList<String> myList=new ArrayList<String>();
     PasswordDatabase passwordDatabase;
     AdapterView.AdapterContextMenuInfo info;
-    String s;
+    RecyclerView passwordRecycler;
+    RelativeLayout errorLayout;
+    PasswordListReyclerView adapter;
+    String s,TAG="MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +59,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         passwordDatabase=new PasswordDatabase(getApplicationContext());
         myList=getArray();
         collection=new ArrayList<>();
-        listView=(ListView)findViewById(R.id.listViewID);
+        adapter=new PasswordListReyclerView(MainActivity.this,myList);
+        //listView=(ListView)findViewById(R.id.listViewID);
+        passwordRecycler=(RecyclerView)findViewById(R.id.password_recycler_view);
+        errorLayout=(RelativeLayout) findViewById(R.id.error_message);
         emptyText=(TextView)findViewById(R.id.text2);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_selectable_list_item,myList);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(emptyText);
-        listView.setOnItemClickListener(this);
-        registerForContextMenu(listView);
+       // adapter=new ArrayAdapter<String>(this,android.R.layout.simple_selectable_list_item,myList);
+       // listView.setAdapter(adapter);
+       // listView.setEmptyView(emptyText);
+        //listView.setOnItemClickListener(this);
+
+        Log.d(TAG,"myList.size()="+myList.size());
+        passwordRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
+        if(myList.size()==0){
+            errorLayout.setVisibility(View.VISIBLE);
+            passwordRecycler.setVisibility(View.GONE);
+        }
+        else{
+            errorLayout.setVisibility(View.GONE);
+
+            passwordRecycler.setAdapter(adapter);
+
+        }
+//        registerForContextMenu(listView);
     }
 
     @Override
@@ -78,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         if(!isDuplicate(collection,acnt.getText().toString())){
                             if(!TextUtils.isEmpty(acnt.getText().toString())){
                                 myList.add(acnt.getText().toString());
+                                adapter=new PasswordListReyclerView(MainActivity.this,myList);
                                 adapter.notifyDataSetChanged();
                                 passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),pass.getText().toString());
                                 Toast.makeText(getApplicationContext(),
@@ -102,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 AlertDialog b = dialogBuilder.create();
                 b.show();
-                listView.setAdapter(adapter);
+               // listView.setAdapter(adapter);
                 return true;
             case R.id.logout:
                 Toast.makeText(getApplicationContext(),
