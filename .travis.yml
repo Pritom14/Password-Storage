@@ -9,5 +9,5 @@ android:
 
 before_install:
 - mkdir "$ANDROID_HOME/licenses" || true
-- cp licenses $ANDROID_HOME/licenses
+- cp -avr licenses $ANDROID_HOME/licenses
 - chmod +x gradlew
