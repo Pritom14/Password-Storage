@@ -7,7 +7,8 @@ android:
     # The SDK version used to compile your project
     - android-25
 
+  licenses:
+    - 'android-sdk-license-c81a61d9'
+
 before_install:
-- mkdir "$ANDROID_HOME/licenses" || true
-- cp -avr licenses $ANDROID_HOME/licenses
-- chmod +x gradlew
+  - chmod +x gradlew
