@@ -25,3 +25,5 @@ before_script:
     # Prepare pre-accepted licenses to not be promted at installation
     - mkdir -p "$ANDROID_HOME/licenses"
     - cp ./android-licenses/* "$ANDROID_HOME/licenses/"
+script:
+    - ./gradlew build check
