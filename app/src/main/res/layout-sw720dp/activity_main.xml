@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18sp"
+            android:paddingTop="20dp"
             android:text="@string/main_xml_empty_text"/>
 
     </RelativeLayout>
