@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Pritom14/Password-Storage.svg?branch=master)](https://travis-ci.org/Pritom14/Password-Storage)
+
 # [Password-Storage][playStore] ![App icon on play store][appIcon]
 
 ### Android application for storing all your passwords.
