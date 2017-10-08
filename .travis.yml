@@ -1,4 +1,5 @@
 language: android
+jdk: oraclejdk8
 android:
   components:
     - build-tools-19.1.0
@@ -9,5 +10,10 @@ android:
     - addon-google_apis-google-19
     - sys-img-armeabi-v7a-android-22
     - sys-img-armeabi-v7a-android-17
+before_script:
+    - mkdir -p "$ANDROID_HOME/licenses"
+    - cp ./android-licenses/* "$ANDROID_HOME/licenses/"
 before_install:
  - chmod +x gradlew
+script:
+    - ./gradlew build check
