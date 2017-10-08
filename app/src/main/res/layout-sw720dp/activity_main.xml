@@ -7,17 +7,24 @@
     android:orientation="vertical"
     tools:context="com.nitsilchar.hp.passwordStorage.MainActivity">
 
-    <ListView
-        android:id="@+id/listViewID"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#9fece2"
-        android:dividerHeight="0.5dp">
+    <!--<ListView-->
+        <!--android:id="@+id/listViewID"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:divider="#9fece2"-->
+        <!--android:dividerHeight="0.5dp"/>-->
 
-    </ListView>
-    <RelativeLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/password_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/error_message"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
         <TextView
