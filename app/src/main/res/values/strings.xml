@@ -79,8 +79,7 @@
     <string name="manifest_label_register">Sign Up</string>
 
     <string name="appstatus_no_connection">Please see to it that you have an active internet connection</string>
-
-
+    <string name="invalid_email_string">Please enter a valid Email ID</string>
 
 
 </resources>
