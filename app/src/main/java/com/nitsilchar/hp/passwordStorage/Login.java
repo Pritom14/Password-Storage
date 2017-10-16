@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -34,8 +35,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Properties prop;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
+    private Pattern pattern;
     SplashActivity splashActivity;
     AppStatus appStatus;
+    //Pattern description at https://www.mkyong.com/regular-expressions/how-to-validate-email-address-with-regular-expression/
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 startActivity(new Intent(Login.this,Registration.class));
             }
         });
+        pattern = Pattern.compile(EMAIL_PATTERN);
     }
     @Override
     public void onClick(View v) {
@@ -96,6 +103,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 } else if (!(str_getPass.matches(str_Password))) {
                     Toast.makeText(getApplicationContext(),
                             R.string.login_email_password_invalid, Toast.LENGTH_LONG)
+                            .show();
+                } else if( !validateEmail(str_Email) ) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.invalid_email_string, Toast.LENGTH_SHORT)
                             .show();
                 } else if ((str_getEmail.matches(str_Email))
                         && (str_getPass.matches(str_Password))) {
@@ -139,6 +150,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Toast.makeText(getApplicationContext(),
                     R.string.login_email_notverified,Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean validateEmail(String str_email) {
+        return pattern.matcher(str_email).matches();
     }
 
     @Override

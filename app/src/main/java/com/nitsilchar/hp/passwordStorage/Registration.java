@@ -21,16 +21,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.fabric.sdk.android.Fabric;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
+    private Pattern pattern;
     Button register;
     String str_Password, str_RePassword, str_Email;
     EditText edt_Password, edt_RePassword, edt_Email;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     AppStatus appStatus;
+
+    //Pattern description at https://www.mkyong.com/regular-expressions/how-to-validate-email-address-with-regular-expression/
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         edt_Email = (EditText) findViewById(R.id.edt_email);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         register.setOnClickListener(this);
+        pattern = Pattern.compile(EMAIL_PATTERN);
     }
 
     @Override
@@ -67,12 +77,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             } else if (str_Email.length() == 0) {
                 Toast.makeText(getApplicationContext(),
                         R.string.registration_enter_email, Toast.LENGTH_LONG).show();
-            } else if (str_Password.contains(str_RePassword) != str_RePassword
-                    .contains(str_Password)) {
+            } else if ( !str_Password.equals(str_RePassword) ) {
                 Toast.makeText(getApplicationContext(),
                         R.string.registration_pass_notmatch, Toast.LENGTH_LONG)
                         .show();
-            }  else {
+            } else if( !validateEmail(str_Email) ) {
+                Toast.makeText(getApplicationContext(),
+                        R.string.invalid_email_string, Toast.LENGTH_SHORT)
+                        .show();
+            } else {
                 progressBar.setVisibility(View.VISIBLE);
                 SplashActivity.editor.putString("password", str_RePassword);
                 SplashActivity.editor.putString("email", str_Email);
@@ -115,7 +128,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(),R.string.appstatus_no_connection,Toast.LENGTH_LONG).show();
         }
     }
-   private void sendVerificationEmail(){
+
+    private boolean validateEmail(String str_email) {
+        return pattern.matcher(str_email).matches();
+    }
+
+    private void sendVerificationEmail(){
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
