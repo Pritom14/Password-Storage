@@ -1,7 +1,6 @@
 
 language: android
 jdk: oraclejdk8
-sudo: required
 android:
   components:
     - build-tools-24.0.2
@@ -10,8 +9,6 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-24
-    - sys-img-armeabi-v7a-android-22
-    - sys-img-armeabi-v7a-android-17
 before_script:
     - mkdir -p "$ANDROID_HOME/licenses"
     - cp ./android-licenses/* "$ANDROID_HOME/licenses/"
