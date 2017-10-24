@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,12 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.nitsilchar.hp.passwordStorage.model.AppStatus;
+import com.nitsilchar.hp.passwordStorage.R;
 
 import java.util.Properties;
 
 import io.fabric.sdk.android.Fabric;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     String str_Email;
     String str_Password, str_getEmail, str_getPass;
@@ -64,7 +66,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this,Registration.class));
+                startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
     }
@@ -105,12 +107,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     progressBar.setVisibility(View.VISIBLE);
 
                     auth.signInWithEmailAndPassword(str_getEmail, str_getPass)
-                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(Login.this,
+                                        Toast.makeText(LoginActivity.this,
                                                 R.string.login_authentication_failed, Toast.LENGTH_LONG).show();
                                     } else {
 
@@ -144,7 +146,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(Login.this, SplashActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("EXIT", true);
             startActivity(intent);

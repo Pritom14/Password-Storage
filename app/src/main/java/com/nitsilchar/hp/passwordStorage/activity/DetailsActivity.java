@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
+import com.nitsilchar.hp.passwordStorage.R;
 
 import io.fabric.sdk.android.Fabric;
 
-public class Details extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity {
     TextView site_name,site_pass;
     PasswordDatabase db;
     Button display;
@@ -48,13 +50,13 @@ public class Details extends AppCompatActivity {
         pass=db.getData(s);
         site_name.setText("Account : "+s);
         site_pass.setText("Password : **********");
-        getPass=SplashActivity.sh.getString("password", null);
+        getPass= SplashActivity.sh.getString("password", null);
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(Details.this);
-                LayoutInflater inflater=Details.this.getLayoutInflater();
+                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(DetailsActivity.this);
+                LayoutInflater inflater=DetailsActivity.this.getLayoutInflater();
                 final View dialogView=inflater.inflate(R.layout.modify_password,null);
                 dialogBuilder.setView(dialogView);
                 final EditText newPass=(EditText)dialogView.findViewById(R.id.enterpassModify);
@@ -85,8 +87,8 @@ public class Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(Details.this);
-                LayoutInflater inflater=Details.this.getLayoutInflater();
+                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(DetailsActivity.this);
+                LayoutInflater inflater=DetailsActivity.this.getLayoutInflater();
                 final View dialogView=inflater.inflate(R.layout.details_dialog,null);
                 dialogBuilder.setView(dialogView);
                 password=(EditText)dialogView.findViewById(R.id.passDialog);

@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.model;
 
 
 

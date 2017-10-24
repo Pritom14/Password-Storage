@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -28,12 +28,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
+import com.nitsilchar.hp.passwordStorage.R;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
-    static ListView listView;
+    private ListView listView;
     TextView emptyText;
     ArrayAdapter<String> adapter;
     List<String> collection;
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 SplashActivity.editor.remove("loginTest");
                 SplashActivity.editor.commit();
                 Intent sendToLoginandRegistration = new Intent(getApplicationContext(),
-                        Login.class);
+                        LoginActivity.class);
                 startActivity(sendToLoginandRegistration);
             default:
             return super.onOptionsItemSelected(item);
@@ -164,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String data=myList.get(position);
-        Intent intent=new Intent(this,Details.class);
+        Intent intent=new Intent(this,DetailsActivity.class);
         intent.putExtra("Site",data);
         startActivity(intent);
     }
