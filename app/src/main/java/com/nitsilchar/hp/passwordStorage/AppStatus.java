@@ -32,10 +32,5 @@ public class AppStatus {
             e.printStackTrace();
         }
         return false;
-        /*ConnectivityManager connectivityManager
-                =(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();*/
-        //return true;
     }
 }
