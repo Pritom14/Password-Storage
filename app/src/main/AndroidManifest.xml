@@ -14,13 +14,13 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.nitsilchar.hp.passwordStorage.MainActivity"
             android:label="@string/manifest_label_main"></activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.details"
+        <activity android:name="com.nitsilchar.hp.passwordStorage.Details"
             android:label="Information">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nitsilchar.hp.passwordStorage.MainActivity"/>
         </activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.Login_registration"></activity>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.LoginRegistration"></activity>
         <activity android:name="com.nitsilchar.hp.passwordStorage.Login"
             android:label="@string/manifest_label_login"/>
         <activity android:name="com.nitsilchar.hp.passwordStorage.Registration"

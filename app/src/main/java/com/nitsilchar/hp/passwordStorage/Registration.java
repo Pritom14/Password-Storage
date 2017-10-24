@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -122,7 +121,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Intent sendtoLogin = new Intent(getApplicationContext(),
-                            Login_registration.class);
+                            LoginRegistration.class);
                     startActivity(sendtoLogin);
                 }
             }

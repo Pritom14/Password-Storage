@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String data=myList.get(position);
-        Intent intent=new Intent(this,details.class);
+        Intent intent=new Intent(this,Details.class);
         intent.putExtra("Site",data);
         startActivity(intent);
     }

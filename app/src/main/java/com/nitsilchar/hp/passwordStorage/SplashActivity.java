@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
                 else {
 
                     Intent send = new Intent(getApplicationContext(),
-                            Login_registration.class);
+                            LoginRegistration.class);
                     startActivity(send);
 
                 }

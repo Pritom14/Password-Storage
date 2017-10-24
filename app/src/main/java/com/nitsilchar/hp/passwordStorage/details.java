@@ -16,7 +16,7 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 
-public class details extends AppCompatActivity {
+public class Details extends AppCompatActivity {
     TextView site_name,site_pass;
     PasswordDatabase db;
     Button display;
@@ -53,8 +53,8 @@ public class details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(details.this);
-                LayoutInflater inflater=details.this.getLayoutInflater();
+                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(Details.this);
+                LayoutInflater inflater=Details.this.getLayoutInflater();
                 final View dialogView=inflater.inflate(R.layout.modify_password,null);
                 dialogBuilder.setView(dialogView);
                 final EditText newPass=(EditText)dialogView.findViewById(R.id.enterpassModify);
@@ -85,8 +85,8 @@ public class details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(details.this);
-                LayoutInflater inflater=details.this.getLayoutInflater();
+                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(Details.this);
+                LayoutInflater inflater=Details.this.getLayoutInflater();
                 final View dialogView=inflater.inflate(R.layout.details_dialog,null);
                 dialogBuilder.setView(dialogView);
                 password=(EditText)dialogView.findViewById(R.id.passDialog);

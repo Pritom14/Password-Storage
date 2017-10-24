@@ -13,7 +13,7 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 
-public class Login_registration extends AppCompatActivity implements View.OnClickListener {
+public class LoginRegistration extends AppCompatActivity implements View.OnClickListener {
     Button login, register;
     CardView cardView;
     boolean b=false;
@@ -62,7 +62,7 @@ public class Login_registration extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(Login_registration.this,
+            Intent intent = new Intent(LoginRegistration.this,
                     SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("EXIT", true);
