@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nitsilchar.hp.passwordStorage.MainActivity">
+    tools:context="com.nitsilchar.hp.passwordStorage.activity.MainActivity">
 
     <ListView
         android:id="@+id/listViewID"

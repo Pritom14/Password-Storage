@@ -1,10 +1,9 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +19,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.nitsilchar.hp.passwordStorage.model.AppStatus;
+import com.nitsilchar.hp.passwordStorage.R;
 
 import io.fabric.sdk.android.Fabric;
 
-public class Registration extends AppCompatActivity implements View.OnClickListener {
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button register;
     String str_Password, str_RePassword, str_Email;
@@ -80,7 +81,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                 progressBar.setVisibility(View.VISIBLE);
                 auth.createUserWithEmailAndPassword(str_Email, str_Password)
-                        .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
@@ -89,22 +90,22 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     try {
                                         throw task.getException();
                                     } catch (FirebaseNetworkException e) {
-                                        Toast.makeText(Registration.this,
+                                        Toast.makeText(RegistrationActivity.this,
                                                 R.string.registration_network_problem,Toast.LENGTH_SHORT).show();
                                     } catch (Exception e) {
-                                        Toast.makeText(Registration.this,
+                                        Toast.makeText(RegistrationActivity.this,
                                                 R.string.registration_error+String.valueOf(task.getException()),Toast.LENGTH_SHORT).show();
                                     }
-                                    Toast.makeText(Registration.this,
+                                    Toast.makeText(RegistrationActivity.this,
                                             R.string.registration_error+String.valueOf(task.getException()),Toast.LENGTH_SHORT).show();
 
 
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException){
-                                        Toast.makeText(Registration.this,
+                                        Toast.makeText(RegistrationActivity.this,
                                                 R.string.registration_email_collision, Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Toast.makeText(Registration.this,
+                                    Toast.makeText(RegistrationActivity.this,
                                             R.string.registration_check_email_verify, Toast.LENGTH_LONG).show();
                                     sendVerificationEmail();
                                 }
@@ -122,7 +123,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Intent sendtoLogin = new Intent(getApplicationContext(),
-                            Login_registration.class);
+                            LoginRegistrationActivity.class);
                     startActivity(sendtoLogin);
                 }
             }
@@ -132,7 +133,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(Registration.this, SplashActivity.class);
+            Intent intent = new Intent(RegistrationActivity.this, SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("EXIT", true);
             startActivity(intent);

@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.model;
 
 
 
@@ -32,10 +32,5 @@ public class AppStatus {
             e.printStackTrace();
         }
         return false;
-        /*ConnectivityManager connectivityManager
-                =(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();*/
-        //return true;
     }
 }

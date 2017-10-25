@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.R;
 
 import io.fabric.sdk.android.Fabric;
 
-public class Login_registration extends AppCompatActivity implements View.OnClickListener {
+public class LoginRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     Button login, register;
     CardView cardView;
     boolean b=false;
@@ -47,12 +48,12 @@ public class Login_registration extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                Intent login = new Intent(getApplicationContext(), Login.class);
+                Intent login = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(login);
                 break;
             default:
                 Intent registeration = new Intent(getApplicationContext(),
-                        Registration.class);
+                        RegistrationActivity.class);
                 startActivity(registeration);
                 break;
         }
@@ -62,7 +63,7 @@ public class Login_registration extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(Login_registration.this,
+            Intent intent = new Intent(LoginRegistrationActivity.this,
                     SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("EXIT", true);
