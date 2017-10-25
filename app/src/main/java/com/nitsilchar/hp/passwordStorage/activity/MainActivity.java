@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -36,7 +37,7 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
-    private ListView listView;
+    private RecyclerView recyclerView;
     TextView emptyText;
     ArrayAdapter<String> adapter;
     List<String> collection;
@@ -50,16 +51,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-        passwordDatabase=new PasswordDatabase(getApplicationContext());
-        myList=getArray();
-        collection=new ArrayList<>();
-        listView=(ListView)findViewById(R.id.listViewID);
-        emptyText=(TextView)findViewById(R.id.text2);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_selectable_list_item,myList);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(emptyText);
-        listView.setOnItemClickListener(this);
-        registerForContextMenu(listView);
+        passwordDatabase = new PasswordDatabase(getApplicationContext());
+        myList = getArray();
+        collection = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.listViewID);
+        emptyText = (TextView)findViewById(R.id.text2);
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_selectable_list_item,myList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setEmptyView(emptyText);
+        recyclerView.setOnItemClickListener(this);
+        registerForContextMenu(recyclerView);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 AlertDialog b = dialogBuilder.create();
                 b.show();
-                listView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
                 return true;
             case R.id.logout:
                 Toast.makeText(getApplicationContext(),
