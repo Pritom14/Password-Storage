@@ -89,11 +89,11 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery("SELECT * FROM"+TABLE_NAME,null);
         Boolean rowExists;
         if (cursor.moveToFirst()){
-            rowExists=true;
+            rowExists=false;
 
         }
         else {
-            rowExists=false;
+            rowExists=true;
         }
         return rowExists;
     }
