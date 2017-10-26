@@ -12,20 +12,20 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.nitsilchar.hp.passwordStorage.MainActivity"
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.MainActivity"
             android:label="@string/manifest_label_main"></activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.details"
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.DetailsActivity"
             android:label="Information">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nitsilchar.hp.passwordStorage.MainActivity"/>
+                android:value="com.nitsilchar.hp.passwordStorage.activity.MainActivity"/>
         </activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.Login_registration"></activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.Login"
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginRegistrationActivity"></activity>
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginActivity"
             android:label="@string/manifest_label_login"/>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.Registration"
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.RegistrationActivity"
             android:label="@string/manifest_label_register"/>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.SplashActivity">
+        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

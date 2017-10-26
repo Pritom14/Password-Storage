@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

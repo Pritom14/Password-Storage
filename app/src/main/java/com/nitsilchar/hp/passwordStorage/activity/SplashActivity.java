@@ -1,4 +1,4 @@
-package com.nitsilchar.hp.passwordStorage;
+package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.R;
+import com.nitsilchar.hp.passwordStorage.activity.LoginActivity;
+import com.nitsilchar.hp.passwordStorage.activity.LoginRegistrationActivity;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -46,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (str_login_test != null
                         && !str_login_test.toString().trim().equals("")) {
                     Intent send = new Intent(getApplicationContext(),
-                            Login.class);
+                            LoginActivity.class);
                     startActivity(send);
                 }
                 /*
@@ -56,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                 else {
 
                     Intent send = new Intent(getApplicationContext(),
-                            Login_registration.class);
+                            LoginRegistrationActivity.class);
                     startActivity(send);
 
                 }
