@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -16,29 +18,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+import com.nitsilchar.hp.passwordStorage.R;
+import com.nitsilchar.hp.passwordStorage.adapter.PasswordRecyclerViewAdapter;
+import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.crashlytics.android.Crashlytics;
-import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
-import com.nitsilchar.hp.passwordStorage.R;
-
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
-    private ListView listView;
+    private RecyclerView recyclerView;
     TextView emptyText;
-    ArrayAdapter<String> adapter;
+    PasswordRecyclerViewAdapter adapter;
     List<String> collection;
     ArrayList<String> myList=new ArrayList<String>();
     PasswordDatabase passwordDatabase;
@@ -50,16 +51,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-        passwordDatabase=new PasswordDatabase(getApplicationContext());
-        myList=getArray();
-        collection=new ArrayList<>();
-        listView=(ListView)findViewById(R.id.listViewID);
-        emptyText=(TextView)findViewById(R.id.text2);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_selectable_list_item,myList);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(emptyText);
-        listView.setOnItemClickListener(this);
-        registerForContextMenu(listView);
+        passwordDatabase = new PasswordDatabase(getApplicationContext());
+        myList = getArray();
+        collection = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.listViewID);
+        emptyText = (TextView)findViewById(R.id.text2);
+        adapter = new PasswordRecyclerViewAdapter(this, myList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        registerForContextMenu(recyclerView);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 AlertDialog b = dialogBuilder.create();
                 b.show();
-                listView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
                 return true;
             case R.id.logout:
                 Toast.makeText(getApplicationContext(),
@@ -162,14 +162,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
         return isDuplicate;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String data=myList.get(position);
-        Intent intent=new Intent(this,DetailsActivity.class);
-        intent.putExtra("Site",data);
-        startActivity(intent);
     }
 
     @Override

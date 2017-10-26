@@ -7,14 +7,14 @@
     android:orientation="vertical"
     tools:context="com.nitsilchar.hp.passwordStorage.activity.MainActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/listViewID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#9fece2"
         android:dividerHeight="0.5dp">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
