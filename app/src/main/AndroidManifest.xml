@@ -22,9 +22,11 @@
         </activity>
         <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginRegistrationActivity"></activity>
         <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginActivity"
-            android:label="@string/manifest_label_login"/>
+            android:label="@string/manifest_label_login"
+            android:theme="@style/AppThemeNoBar"/>
         <activity android:name="com.nitsilchar.hp.passwordStorage.activity.RegistrationActivity"
-            android:label="@string/manifest_label_register"/>
+            android:label="@string/manifest_label_register"
+            android:theme="@style/AppThemeNoBar"/>
         <activity android:name="com.nitsilchar.hp.passwordStorage.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
