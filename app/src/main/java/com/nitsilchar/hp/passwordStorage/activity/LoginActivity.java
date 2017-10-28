@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         str_getEmail = SplashActivity.sh.getString("email", null);
         str_getPass = SplashActivity.sh.getString("password", null);
         login = (Button) findViewById(R.id.btn_login);
-        newuser = (Button) findViewById(R.id.toreg);
+        newuser = (Button) findViewById(R.id.newuser);
         edt_Email = (EditText) findViewById(R.id.edt_email);
         edt_Password = (EditText) findViewById(R.id.edt_password);
         cardView1=(CardView)findViewById(R.id.card1);
