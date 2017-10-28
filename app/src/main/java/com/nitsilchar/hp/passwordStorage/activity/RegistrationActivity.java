@@ -27,6 +27,7 @@ import io.fabric.sdk.android.Fabric;
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button register;
+    Button existinguser;
     String str_Password, str_RePassword, str_Email;
     EditText edt_Password, edt_RePassword, edt_Email;
     private ProgressBar progressBar;
@@ -41,15 +42,26 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         auth = FirebaseAuth.getInstance();
         appStatus=new AppStatus(getApplicationContext());
         register = (Button) findViewById(R.id.btn_register);
+        existinguser = (Button) findViewById(R.id.existinguser);
         edt_Password = (EditText) findViewById(R.id.edt_Rpassword);
         edt_RePassword = (EditText) findViewById(R.id.edt_RRepassword);
         edt_Email = (EditText) findViewById(R.id.edt_email);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         register.setOnClickListener(this);
+        existinguser.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+
+        if(v==existinguser) {
+
+            Intent go = new Intent(RegistrationActivity.this, LoginActivity.class);
+
+            startActivity(go);
+
+        }
+
         if (appStatus.isOnline()) {
             str_Password = edt_Password.getText().toString();
             str_RePassword = edt_RePassword.getText().toString();

@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_container_padding">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="header_text">30sp</dimen>
+    <dimen name="header_text_marginTop">50sp</dimen>
+    <dimen name="linearlayoutmargin">20sp</dimen>
+    <dimen name="drawablepadding">10sp</dimen>
+    <dimen name="space">15sp</dimen>
+    <dimen name="text">17sp</dimen>
+</resources>

@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String str_Email;
     String str_Password, str_getEmail, str_getPass;
     EditText edt_Email, edt_Password;
-    Button login,register;
+    Button login,register, newuser;
     CardView cardView1,cardView2;
     boolean b=false;
     Properties prop;
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         str_getEmail = SplashActivity.sh.getString("email", null);
         str_getPass = SplashActivity.sh.getString("password", null);
         login = (Button) findViewById(R.id.btn_login);
-        register=(Button)findViewById(R.id.btn_reg);
+        newuser = (Button) findViewById(R.id.newuser);
         edt_Email = (EditText) findViewById(R.id.edt_email);
         edt_Password = (EditText) findViewById(R.id.edt_password);
         cardView1=(CardView)findViewById(R.id.card1);
@@ -58,17 +58,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         b=splashActivity.containsPass("password");
         if(b==true){
-            register.setVisibility(View.INVISIBLE);
-            cardView2.setVisibility(View.INVISIBLE);
         }
         login.setOnClickListener(this);
-
-        register.setOnClickListener(new View.OnClickListener() {
+        newuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
+
     }
     @Override
     public void onClick(View v) {

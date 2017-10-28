@@ -11,7 +11,7 @@
     <string name="details_confirm">Confirm</string>
     <string name="details_wrong_password">Wrong Password</string>
 
-    <string name="login_enter_email_password">Please enter your login Email Id and Password</string>
+    <string name="login_enter_mail_password">Please enter your login Email Id and Password</string>
     <string name="login_enter_emailid">Please enter your Email Id</string>
     <string name="login_enter_password">Please enter your Password</string>
     <string name="login_details_invalid">Details does not belongs to any account</string>
@@ -78,9 +78,18 @@
     <string name="manifest_label_login">Login</string>
     <string name="manifest_label_register">Sign Up</string>
 
+    <string name="login_enter_email_password">Please enter your login Email Id and Password</string>
+
     <string name="appstatus_no_connection">Please see to it that you have an active internet connection</string>
 
+    <string name="email">Email</string>
 
+    <string name="password">Password</string>
 
+    <string name="confirmpassword">Confirm Password</string>
+
+    <string name="newuser">New User? Register Here.</string>
+
+    <string name="existinguser">Already Registered? Login Here.</string>
 
 </resources>
