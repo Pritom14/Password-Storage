@@ -10,19 +10,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="@dimen/header_text_marginTop"
         android:fontFamily="sans-serif-smallcaps"
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textSize="@dimen/header_text"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20sp"
+        android:layout_margin="@dimen/linearlayoutmargin"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -34,29 +34,31 @@
             <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
+                android:layout_height="@dimen/header_text_marginTop"
                 android:background="@drawable/edittext"
-                android:drawablePadding="10sp"
+                android:drawablePadding="@dimen/drawablepadding"
                 android:drawableStart="@drawable/email"
-                android:hint="Email ID"
+                android:drawableLeft="@drawable/email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:paddingEnd="10sp"
-                android:paddingStart="10sp"
+                android:paddingEnd="@dimen/drawablepadding"
+                android:paddingStart="@dimen/drawablepadding"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:layout_marginTop="15sp"
+                android:layout_height="@dimen/header_text_marginTop"
+                android:layout_marginTop="@dimen/space"
                 android:background="@drawable/edittext"
-                android:drawablePadding="10sp"
+                android:drawablePadding="@dimen/drawablepadding"
                 android:drawableStart="@drawable/password"
-                android:hint="Password"
+                android:drawableLeft="@drawable/password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:paddingEnd="10sp"
-                android:paddingStart="10sp"
+                android:paddingEnd="@dimen/drawablepadding"
+                android:paddingStart="@dimen/drawablepadding"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
@@ -72,8 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="15sp"
+                android:layout_marginTop="@dimen/space"
                 android:background="@drawable/greenbutton">
 
                 <Button
@@ -81,23 +82,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackground"
-                    android:text="LOGIN"
+                    android:text="@string/manifest_label_login"
                     android:textColor="@color/white"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/text"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/toreg"
+                android:id="@+id/newuser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:background="?attr/selectableItemBackground"
-                android:text="New User? Register Here."
+                android:text="@string/newuser"
                 android:textColor="@android:color/white"
-                android:textSize="15sp"
+                android:textSize="@dimen/space"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -106,10 +107,10 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/header_text"
+        android:layout_height="@dimen/header_text"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/linearlayoutmargin"
         android:visibility="gone" />
 
 </RelativeLayout>
