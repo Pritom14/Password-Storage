@@ -3,9 +3,15 @@ package com.nitsilchar.hp.passwordStorage.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterViewAnimator;
 import android.widget.TextView;
 
 import com.nitsilchar.hp.passwordStorage.R;
@@ -17,6 +23,10 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
 
     private Context context;
     private List<String> accounts;
+    private int position;
+
+    public PasswordRecyclerViewAdapter() {
+    }
 
     public PasswordRecyclerViewAdapter(Context context, List<String> accounts) {
         this.context = context;

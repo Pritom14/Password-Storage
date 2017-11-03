@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     TextView emptyText;
     PasswordRecyclerViewAdapter adapter;
     List<String> collection;
-    ArrayList<String> myList=new ArrayList<String>();
+    List<String> myList=new ArrayList<String>();
     PasswordDatabase passwordDatabase;
     AdapterView.AdapterContextMenuInfo info;
     String s;
@@ -136,10 +136,12 @@ public class MainActivity extends AppCompatActivity {
         return editor.commit();
     }
 
-    public ArrayList<String> getArray(){
-        SharedPreferences sp=this.getSharedPreferences(SHARED_PREFS_NAME,Activity.MODE_PRIVATE);
+    public List<String> getArray(){
+        /*SharedPreferences sp=this.getSharedPreferences(SHARED_PREFS_NAME,Activity.MODE_PRIVATE);
         Set<String> set=sp.getStringSet("list",new HashSet<String>());
-        return new ArrayList<String>(set);
+        return new ArrayList<String>(set);*/
+        List accounts=passwordDatabase.getAcc();
+        return accounts;
     }
 
    @Override

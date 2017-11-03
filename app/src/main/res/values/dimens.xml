@@ -9,4 +9,5 @@
     <dimen name="drawablepadding">10sp</dimen>
     <dimen name="space">15sp</dimen>
     <dimen name="text">17sp</dimen>
+    <dimen name="default_card_layout_margin">8dp</dimen>
 </resources>
