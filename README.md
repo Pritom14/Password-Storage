@@ -20,11 +20,7 @@ Do you want a secure way of saving all of them in one place instead of writing t
 2. Re-enter the password and submit it.
 
 	![Instruction2][inst2]
-    
-    
 3. Then an email will be sent to your registered email-id with a link.
-
-
 4. Click on the link to verify your email-id.
 5. Then log in with your email id and the password which you have set as your master password.
 
