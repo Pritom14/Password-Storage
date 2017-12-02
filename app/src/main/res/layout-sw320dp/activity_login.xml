@@ -54,13 +54,15 @@
                 android:inputType="textEmailAddress"
                 android:paddingEnd="@dimen/drawablepadding"
                 android:paddingStart="@dimen/drawablepadding"
-              
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/edt_password"
-
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/header_text_marginTop"
                 android:layout_marginTop="@dimen/space"
@@ -87,16 +89,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space"
-                android:background="@drawable/greenbutton">
+                >
 
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="@drawable/login"
                     android:text="@string/manifest_label_login"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="32dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -106,8 +110,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
+
                 android:gravity="center"
-                android:background="?attr/selectableItemBackground"
+                android:background="#00000000"
                 android:text="@string/newuser"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/space"
