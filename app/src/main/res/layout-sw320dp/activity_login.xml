@@ -11,12 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/header_text_marginTop"
-        android:fontFamily="sans-serif-smallcaps"
+        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="@string/app_name"
+        android:text="Welcome"
+        android:id="@+id/heading"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/header_text"
-        android:textStyle="bold" />
+        android:textSize="50sp"
+        android:textStyle="normal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Lorem ipsum sit amet, sample text goes here.\ntwo liner text is preferred here."
+        android:layout_below="@id/heading"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="normal" />
 
     <LinearLayout
         android:id="@+id/layout1"
@@ -37,24 +49,24 @@
                 android:layout_height="@dimen/header_text_marginTop"
                 android:background="@drawable/edittext"
                 android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/email"
-                android:drawableLeft="@drawable/email"
+                android:textAlignment="center"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:paddingEnd="@dimen/drawablepadding"
                 android:paddingStart="@dimen/drawablepadding"
+              
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/edt_password"
+
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/header_text_marginTop"
                 android:layout_marginTop="@dimen/space"
                 android:background="@drawable/edittext"
                 android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/password"
-                android:drawableLeft="@drawable/password"
+                android:textAlignment="center"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingEnd="@dimen/drawablepadding"
