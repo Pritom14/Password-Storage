@@ -6,22 +6,41 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     tools:context="com.nitsilchar.hp.passwordStorage.activity.LoginActivity">
-
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/header_text_marginTop"
-        android:fontFamily="sans-serif-smallcaps"
+
+        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="@string/app_name"
+        android:text="Welcome"
+        android:id="@+id/heading"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/header_text"
-        android:textStyle="bold" />
+        android:textSize="50sp"
+        android:textStyle="normal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:id="@+id/description"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Lorem ipsum sit amet, sample text goes here.\ntwo liner text is preferred here."
+        android:layout_below="@id/heading"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="normal" />
+
 
     <LinearLayout
         android:id="@+id/layout1"
+
+        android:layout_below="@id/description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/linearlayoutmargin"
         android:gravity="center"
         android:orientation="vertical">
@@ -37,24 +56,26 @@
                 android:layout_height="@dimen/header_text_marginTop"
                 android:background="@drawable/edittext"
                 android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/email"
-                android:drawableLeft="@drawable/email"
+                android:textAlignment="center"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:paddingEnd="@dimen/drawablepadding"
                 android:paddingStart="@dimen/drawablepadding"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/edt_password"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/header_text_marginTop"
                 android:layout_marginTop="@dimen/space"
                 android:background="@drawable/edittext"
                 android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/password"
-                android:drawableLeft="@drawable/password"
+                android:textAlignment="center"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingEnd="@dimen/drawablepadding"
@@ -75,16 +96,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space"
-                android:background="@drawable/greenbutton">
+                >
 
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="@drawable/login"
                     android:text="@string/manifest_label_login"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="32dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -94,8 +117,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
+
                 android:gravity="center"
-                android:background="?attr/selectableItemBackground"
+                android:background="#00000000"
                 android:text="@string/newuser"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/space"
@@ -104,7 +128,7 @@
         </LinearLayout>
 
     </LinearLayout>
-
+</LinearLayout>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="@dimen/header_text"

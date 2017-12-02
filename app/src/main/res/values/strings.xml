@@ -82,7 +82,7 @@
 
     <string name="appstatus_no_connection">Please see to it that you have an active internet connection</string>
 
-    <string name="email">Email</string>
+    <string name="email">Email Address</string>
 
     <string name="password">Password</string>
 
