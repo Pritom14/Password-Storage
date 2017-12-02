@@ -45,11 +45,11 @@ Do you want a secure way of saving all of them in one place instead of writing t
 
 [appIcon]: https://lh3.googleusercontent.com/3Q-wUNHD-hV56WNsWy9OUFzHaReBsZM4hQK-vP9DT2YZVIRNyigmRVV3zQ5f2AxTa5Pl=w50 
 
-[inst1]: https://lh3.googleusercontent.com/1uMMgJeDJZaQBzhvLONKHyne0jZuz1VYHOYn6vCZTk1GYq976ryC2mTYahVvZrQNYcU=h370
+[inst1]: https://github.com/dastamoghno/Password-Storage/blob/master/Register.jpg
 
-[inst2]: https://lh3.googleusercontent.com/y0mLuFNaMmugT2gOrJKVTi1v2dIhsO9dq2Fjsq7Yz5n0zI1ulTgDig4W0rXvfh_KZ7o=h370
+[inst2]: https://github.com/dastamoghno/Password-Storage/blob/master/Screenshot_2017-12-01-10-03-58-873_com.nitsilchar.hp.passwordStorage%5B1%5D.png
 
-[inst5]: https://lh3.googleusercontent.com/Jm-5iKpL72ffsPngAEyWagbUDxkn8uU4Gb3XSp7n4ZKroNOyDSX5BEv8lG02LtzyLmA=h370
+[inst5]: https://github.com/dastamoghno/Password-Storage/blob/master/Screenshot_2017-12-01-10-04-34-089_com.nitsilchar.hp.passwordStorage%5B1%5D.png
 
 [inst6.1]: https://lh3.googleusercontent.com/XUCIjFfvv0IzLK4E85Z8Qo5nS8_gWctmMY13yDDF2L0hjaVLft13vjcdz8X8jIOowbs=h370
 
