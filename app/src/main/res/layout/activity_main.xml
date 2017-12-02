@@ -25,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textSize="24sp"
             android:text="@string/main_xml_empty_text"/>
 
     </RelativeLayout>

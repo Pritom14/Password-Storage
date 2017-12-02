@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Password-Storage.iml" filepath="$PROJECT_DIR$/Password-Storage.iml" />
+      <module fileurl="file://E:\GitHub\Password-Storage\Password-Storage.iml" filepath="E:\GitHub\Password-Storage\Password-Storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

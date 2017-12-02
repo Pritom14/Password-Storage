@@ -45,7 +45,7 @@
     <string name="main_delete">Deleted </string>
     <string name="main_wrong_pass">Wrong Password</string>
 
-    <string name="main_xml_empty_text">Add information,click the \"+\" icon</string>
+    <string name="main_xml_empty_text">Add information by clicking the \"+\" icon</string>
 
     <string name="regstr_xml_email_hint">Email Id</string>
     <string name="regstr_xml_pass_hint">Password</string>
