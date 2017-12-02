@@ -27,22 +27,11 @@
 
             android:src="@mipmap/icon"/>
 
+
+
+
         <TextView
             android:layout_below="@id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to"
-            android:textAllCaps="true"
-            android:textStyle="bold|italic"
-            android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:id="@+id/welcome"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-condensed"/>
-
-
-        <TextView
-            android:layout_below="@id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password\nStorage"
@@ -61,16 +50,5 @@
   </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/textDisplay"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
-            android:text="We recommend you to keep the\napplication password safe."
-            android:textSize="15sp"
-            android:textStyle="italic"
-            android:textColor="#ffffff"
-            android:textAlignment="center"
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 </RelativeLayout>
