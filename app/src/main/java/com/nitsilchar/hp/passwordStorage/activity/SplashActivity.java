@@ -1,11 +1,15 @@
 package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.Intent;
+
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.nitsilchar.hp.passwordStorage.R;
@@ -26,6 +30,15 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
+
+        //ADDED BY ThisIsNSH
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
+
         actionBar=getSupportActionBar();
         actionBar.hide();
         sh = getSharedPreferences("myprefe", 0);
