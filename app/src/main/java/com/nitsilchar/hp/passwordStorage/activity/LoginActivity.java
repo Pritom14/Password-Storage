@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -31,8 +32,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String str_Password, str_getEmail, str_getPass;
     EditText edt_Email, edt_Password;
     Button login,register, newuser;
+    TextView t1;
     CardView cardView1,cardView2;
     boolean b=false;
+
     Properties prop;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
@@ -55,7 +58,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edt_Password = (EditText) findViewById(R.id.edt_password);
         cardView1=(CardView)findViewById(R.id.card1);
         cardView2=(CardView)findViewById(R.id.card2);
+        t1=(TextView)findViewById(R.id.resetpw);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
+            }
+        });
         b=splashActivity.containsPass("password");
         if(b==true){
         }

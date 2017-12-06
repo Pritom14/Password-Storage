@@ -62,6 +62,8 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -102,6 +104,16 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_text_marginTop"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="@string/res"
+            android:id="@+id/resetpw"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
