@@ -27,9 +27,9 @@
             android:id="@+id/arrow"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="340dp"
-            android:src="@drawable/ic_send_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/arrow"
+            android:layout_width="60dp"
+            android:layout_height="40dp" />
 
 
     </android.support.v7.widget.CardView>
