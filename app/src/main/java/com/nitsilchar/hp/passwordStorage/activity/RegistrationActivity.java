@@ -157,5 +157,4 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
-
 }
