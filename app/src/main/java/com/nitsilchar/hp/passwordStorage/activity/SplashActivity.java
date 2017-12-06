@@ -20,7 +20,6 @@ import io.fabric.sdk.android.Fabric;
 
 public class SplashActivity extends AppCompatActivity {
     public static String str_login_test;
-
     public static SharedPreferences sh;
     public static SharedPreferences.Editor editor;
     ActionBar actionBar;
@@ -85,7 +84,6 @@ public class SplashActivity extends AppCompatActivity {
     public boolean containsPass(String str){
 
        return  sh.contains(str)?true:false;
-
 
     }
 
