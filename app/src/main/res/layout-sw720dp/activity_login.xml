@@ -119,6 +119,17 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/space"
                 android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/header_text_marginTop"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:id="@+id/resetpw"
+                android:text="@string/res"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
 
         </LinearLayout>
 

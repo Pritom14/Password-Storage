@@ -10,7 +10,7 @@
     <string name="details_show_password">Show password</string>
     <string name="details_confirm">Confirm</string>
     <string name="details_wrong_password">Wrong Password</string>
-
+<string name="res">Reset Password</string>
     <string name="login_enter_mail_password">Please enter your login Email Id and Password</string>
     <string name="login_enter_emailid">Please enter your Email Id</string>
     <string name="login_enter_password">Please enter your Password</string>
