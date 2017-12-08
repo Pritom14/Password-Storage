@@ -21,7 +21,7 @@ import io.fabric.sdk.android.Fabric;
 public class DetailsActivity extends AppCompatActivity {
     TextView site_name,site_pass;
     PasswordDatabase db;
-    Button display;
+    ChechBox  mCbShowPwd;
     EditText password;
     Button modify;
     String getPass,s;
@@ -50,7 +50,25 @@ public class DetailsActivity extends AppCompatActivity {
         pass=db.getData(s);
         site_name.setText("Account : "+s);
         site_pass.setText("Password : **********");
-        getPass= SplashActivity.sh.getString("password", null);
+        mCbShowPwd = (CheckBox) findViewById(R.id.showpaswword);
+
+        // add onCheckedListener on checkbox
+        // when user clicks on this checkbox, this is the handler.
+        mCbShowPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // checkbox status is changed from uncheck to checked.
+                getPass= SplashActivity.sh.getString("password", null);
+                // show password
+                if (!isChecked) {
+                    site_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    // hide password
+                    site_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });;
+
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +101,7 @@ public class DetailsActivity extends AppCompatActivity {
                 b.show();
             }
         });
-        display.setOnClickListener(new View.OnClickListener() {
+        mCbShowPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -101,7 +119,7 @@ public class DetailsActivity extends AppCompatActivity {
                             site_pass.setText("Password : "+pass);
                             modify.setVisibility(View.VISIBLE);
                             cardView2.setVisibility(View.VISIBLE);
-                            display.setVisibility(View.INVISIBLE);
+                            mCbShowPwd.setVisibility(View.INVISIBLE);
                             cardView1.setVisibility(View.INVISIBLE);
                             dialog.dismiss();
                         }
