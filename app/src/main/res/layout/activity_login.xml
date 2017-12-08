@@ -29,38 +29,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-            <EditText
-                android:id="@+id/edt_email"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/header_text_marginTop"
-                android:background="@drawable/edittext"
-                android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/email"
-                android:drawableLeft="@drawable/email"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:paddingEnd="@dimen/drawablepadding"
-                android:paddingStart="@dimen/drawablepadding"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@color/white"
+                android:textColorHint="@color/white">
 
-            <EditText
-                android:id="@+id/edt_password"
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/header_text_marginTop"
+                    android:drawablePadding="@dimen/drawablepadding"
+                    android:drawableStart="@drawable/email"
+                    android:drawableLeft="@drawable/email"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:paddingEnd="@dimen/drawablepadding"
+                    android:paddingStart="@dimen/drawablepadding"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:backgroundTint="@color/light_blue_500" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/header_text_marginTop"
-                android:layout_marginTop="@dimen/space"
-                android:background="@drawable/edittext"
-                android:drawablePadding="@dimen/drawablepadding"
-                android:drawableStart="@drawable/password"
-                android:drawableLeft="@drawable/password"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:paddingEnd="@dimen/drawablepadding"
-                android:paddingStart="@dimen/drawablepadding"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/icon_selector"
+                app:passwordToggleTint="@color/white"
+                app:hintTextAppearance="@color/white"
+                android:textColorHint="@color/white">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/header_text_marginTop"
+                    android:layout_marginTop="@dimen/space"
+                    android:drawablePadding="@dimen/drawablepadding"
+                    android:drawableStart="@drawable/password"
+                    android:drawableLeft="@drawable/password"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:paddingEnd="@dimen/drawablepadding"
+                    android:paddingStart="@dimen/drawablepadding"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:backgroundTint="@color/light_blue_500" />
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
