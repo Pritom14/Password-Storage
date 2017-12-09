@@ -20,6 +20,9 @@ Do you want a secure way of saving all of them in one place instead of writing t
 
 2. Re-enter the password and submit it.
 
+	![Instruction2][inst2]
+3. Then an email will be sent to your registered email-id with a link.
+=======
 	![Instruction2][inst2]    
 
 3. Then an email will be sent to your registered email-id with a link.
