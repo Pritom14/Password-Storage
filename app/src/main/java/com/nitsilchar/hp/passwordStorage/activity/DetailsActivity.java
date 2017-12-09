@@ -43,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         site_name=(TextView)findViewById(R.id.displaySiteTextId);
         site_pass=(TextView)findViewById(R.id.displaySitePassId);
-        mCbShowPwd=(CheckBox)findViewById(R.id.showpaswword);
+        mCbShowPwd=(CheckBox)findViewById(R.id.showpassword);
         mCbShowPwd.setVisibility(View.VISIBLE);
         modify=(Button)findViewById(R.id.modifyButton);
         cardView1=(CardView)findViewById(R.id.card1);
@@ -54,7 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
         pass=db.getData(s);
         site_name.setText("Account : "+s);
         site_pass.setText("Password : **********");
-        mCbShowPwd = (CheckBox) findViewById(R.id.showpaswword);
+        mCbShowPwd = (CheckBox) findViewById(R.id.showpassword);
 
         // add onCheckedListener on checkbox
         // when user clicks on this checkbox, this is the handler.
