@@ -27,7 +27,7 @@
             android:id="@+id/arrow"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="340dp"
-            android:src="@drawable/arrow"
+            android:src="@drawable/ic_play_arrow_black_24dp"
             android:layout_width="60dp"
             android:layout_height="40dp" />
 
