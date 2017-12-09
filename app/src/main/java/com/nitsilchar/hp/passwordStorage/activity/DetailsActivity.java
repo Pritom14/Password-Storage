@@ -26,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView site_name,site_pass;
     PasswordDatabase db;
     CheckBox mCbShowPwd;
-    EditText password;
+   EditText password;
     Button modify;
     String getPass,s;
     String newPassword,pass;
