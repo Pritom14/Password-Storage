@@ -1,6 +1,7 @@
 package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import com.nitsilchar.hp.passwordStorage.R;
+import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -31,7 +32,6 @@ public class DetailsActivity extends AppCompatActivity {
     String getPass,s;
     String newPassword,pass;
     int getUpdate;
-    CardView cardView1,cardView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +46,14 @@ public class DetailsActivity extends AppCompatActivity {
         mCbShowPwd=(CheckBox)findViewById(R.id.showpassword);
         mCbShowPwd.setVisibility(View.VISIBLE);
         modify=(Button)findViewById(R.id.modifyButton);
-        cardView1=(CardView)findViewById(R.id.card1);
-        cardView2=(CardView)findViewById(R.id.card2);
         modify.setVisibility(View.INVISIBLE);
-        cardView2.setVisibility(View.INVISIBLE);
         s=getIntent().getStringExtra("Site");
         pass=db.getData(s);
+
+        site_name.setText(s);
+        site_pass.setText("**********");
+        getPass= SplashActivity.sh.getString("password", null);
+
         site_name.setText("Account : "+s);
         site_pass.setText("Password : **********");
         mCbShowPwd = (CheckBox) findViewById(R.id.showpassword);
@@ -73,6 +75,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });;
 
+
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +94,7 @@ public class DetailsActivity extends AppCompatActivity {
                         getUpdate=db.modifyCredentials(s,newPassword);
                         if (getUpdate==1) {
                             dialog.dismiss();
-                            site_pass.setText("Password : "+newPassword);
+                            site_pass.setText(newPassword);
                         }
                     }
                 });
@@ -120,11 +123,15 @@ public class DetailsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(getPass.equals(password.getText().toString())){
-                            site_pass.setText("Password : "+pass);
+                            site_pass.setText(pass);
                             modify.setVisibility(View.VISIBLE);
+
+                            display.setVisibility(View.INVISIBLE);
+
                             cardView2.setVisibility(View.VISIBLE);
                             mCbShowPwd.setVisibility(View.INVISIBLE);
                             cardView1.setVisibility(View.INVISIBLE);
+
                             dialog.dismiss();
                         }
                         else{
