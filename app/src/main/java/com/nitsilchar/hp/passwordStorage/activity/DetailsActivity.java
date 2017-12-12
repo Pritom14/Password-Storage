@@ -4,9 +4,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +26,8 @@ import io.fabric.sdk.android.Fabric;
 public class DetailsActivity extends AppCompatActivity {
     TextView site_name,site_pass;
     PasswordDatabase db;
-    Button display;
-    EditText password;
+    CheckBox mCbShowPwd;
+   EditText password;
     Button modify;
     String getPass,s;
     String newPassword,pass;
@@ -37,15 +43,39 @@ public class DetailsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         site_name=(TextView)findViewById(R.id.displaySiteTextId);
         site_pass=(TextView)findViewById(R.id.displaySitePassId);
-        display=(Button)findViewById(R.id.displayButton);
-        display.setVisibility(View.VISIBLE);
+        mCbShowPwd=(CheckBox)findViewById(R.id.showpassword);
+        mCbShowPwd.setVisibility(View.VISIBLE);
         modify=(Button)findViewById(R.id.modifyButton);
         modify.setVisibility(View.INVISIBLE);
         s=getIntent().getStringExtra("Site");
         pass=db.getData(s);
+
         site_name.setText(s);
         site_pass.setText("**********");
         getPass= SplashActivity.sh.getString("password", null);
+
+        site_name.setText("Account : "+s);
+        site_pass.setText("Password : **********");
+        mCbShowPwd = (CheckBox) findViewById(R.id.showpassword);
+
+        // add onCheckedListener on checkbox
+        // when user clicks on this checkbox, this is the handler.
+        mCbShowPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // checkbox status is changed from uncheck to checked.
+                getPass= SplashActivity.sh.getString("password", null);
+                // show password
+                if (!isChecked) {
+                    site_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    // hide password
+                    site_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });;
+
+
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
                 b.show();
             }
         });
-        display.setOnClickListener(new View.OnClickListener() {
+        mCbShowPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -95,7 +125,13 @@ public class DetailsActivity extends AppCompatActivity {
                         if(getPass.equals(password.getText().toString())){
                             site_pass.setText(pass);
                             modify.setVisibility(View.VISIBLE);
+
                             display.setVisibility(View.INVISIBLE);
+
+                            cardView2.setVisibility(View.VISIBLE);
+                            mCbShowPwd.setVisibility(View.INVISIBLE);
+                            cardView1.setVisibility(View.INVISIBLE);
+
                             dialog.dismiss();
                         }
                         else{
