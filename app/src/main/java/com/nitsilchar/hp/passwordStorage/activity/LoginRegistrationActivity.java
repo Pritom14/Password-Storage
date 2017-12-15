@@ -19,15 +19,12 @@ public class LoginRegistrationActivity extends AppCompatActivity implements View
     CardView cardView;
     boolean b=false;
     SplashActivity splashActivity;
-    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login_registration);
-        actionBar=getSupportActionBar();
-        actionBar.hide();
         login = (Button) findViewById(R.id.btn_login);
         register = (Button) findViewById(R.id.btn_register);
         cardView=(CardView)findViewById(R.id.layout2);

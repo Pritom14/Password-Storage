@@ -33,8 +33,6 @@ public class DetailsActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_details);
         db=new PasswordDatabase(getApplicationContext());
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
         site_name=(TextView)findViewById(R.id.displaySiteTextId);
         site_pass=(TextView)findViewById(R.id.displaySitePassId);
         modify=(Button)findViewById(R.id.modifyButton);
