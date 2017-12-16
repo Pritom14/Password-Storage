@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listViewID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#9fece2"
+        android:dividerHeight="0.5dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="@string/main_xml_empty_text"/>
+
+    </RelativeLayout>-->
+
+</android.support.constraint.ConstraintLayout>

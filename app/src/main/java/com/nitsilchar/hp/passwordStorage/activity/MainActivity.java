@@ -5,16 +5,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +40,7 @@ import java.util.Set;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
     private RecyclerView recyclerView;
@@ -60,70 +66,95 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         registerForContextMenu(recyclerView);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickFloatingAdditionButton();
+            }
+        });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void onClickFloatingAdditionButton() {
+        final AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
+        LayoutInflater inflater=this.getLayoutInflater();
+        final View dialogView=inflater.inflate(R.layout.custom_dialog,null);
+        dialogBuilder.setView(dialogView);
+        final EditText acnt=(EditText)dialogView.findViewById(R.id.dialogEditAccID);
+        final EditText pass=(EditText)dialogView.findViewById(R.id.dialogEditPassID);
+        dialogBuilder.setIcon(R.mipmap.icon);
+        dialogBuilder.setTitle(R.string.main_acnt_info);
+        dialogBuilder.setPositiveButton(R.string.main_add, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                collection=passwordDatabase.getAcc();
+                if(!isDuplicate(collection,acnt.getText().toString())){
+                    if(!TextUtils.isEmpty(acnt.getText().toString())){
+                        myList.add(acnt.getText().toString());
+                        adapter.notifyDataSetChanged();
+                        passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),pass.getText().toString());
+                        Toast.makeText(getApplicationContext(),
+                                "Added "+acnt.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),
+                                R.string.main_empty_field,Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            R.string.main_duplicate,Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton(R.string.main_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.addmenu:
-                final AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
-                LayoutInflater inflater=this.getLayoutInflater();
-                final View dialogView=inflater.inflate(R.layout.custom_dialog,null);
-                dialogBuilder.setView(dialogView);
-                final EditText acnt=(EditText)dialogView.findViewById(R.id.dialogEditAccID);
-                final EditText pass=(EditText)dialogView.findViewById(R.id.dialogEditPassID);
-                dialogBuilder.setIcon(R.mipmap.icon);
-                dialogBuilder.setTitle(R.string.main_acnt_info);
-                dialogBuilder.setPositiveButton(R.string.main_add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        collection=passwordDatabase.getAcc();
-                        if(!isDuplicate(collection,acnt.getText().toString())){
-                            if(!TextUtils.isEmpty(acnt.getText().toString())){
-                                myList.add(acnt.getText().toString());
-                                adapter.notifyDataSetChanged();
-                                passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),pass.getText().toString());
-                                Toast.makeText(getApplicationContext(),
-                                        "Added "+acnt.getText().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),
-                                        R.string.main_empty_field,Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(),
-                                    R.string.main_duplicate,Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                dialogBuilder.setNegativeButton(R.string.main_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog b = dialogBuilder.create();
-                b.show();
-                recyclerView.setAdapter(adapter);
+            case R.id.search_button:
                 return true;
-            case R.id.logout:
-                Toast.makeText(getApplicationContext(),
-                        R.string.main_logout, Toast.LENGTH_LONG).show();
-                SplashActivity.editor.remove("loginTest");
-                SplashActivity.editor.commit();
-                Intent sendToLoginandRegistration = new Intent(getApplicationContext(),
-                        LoginActivity.class);
-                startActivity(sendToLoginandRegistration);
             default:
-            return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -144,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         return accounts;
     }
 
-   @Override
+    @Override
     protected void onPause() {
         super.onPause();
         saveArray();
@@ -155,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         saveArray();
         super.onStop();
     }
+
     public boolean isDuplicate(List<String> col,String value){
         boolean isDuplicate=false;
         for(String s:col){
@@ -181,8 +213,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.context_menu,menu);
+        getMenuInflater().inflate(R.menu.context_menu, menu);
     }
 
     @Override
@@ -228,7 +259,29 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_logout:
+                Toast.makeText(getApplicationContext(),
+                        R.string.main_logout, Toast.LENGTH_LONG).show();
+                SplashActivity.editor.remove("loginTest");
+                SplashActivity.editor.commit();
+                Intent sendToLoginAndRegistration = new Intent(getApplicationContext(),
+                        LoginActivity.class);
+                startActivity(sendToLoginAndRegistration);
+            case R.id.nav_settings:
+                // Implement Settings Feature here
+            case R.id.nav_share:
+                // Implement Share Feature here
+            case R.id.nav_about_us:
+                // Add About Us Info here
+        }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
 
 
