@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Pritom14/Password-Storage.svg?branch=master)](https://travis-ci.org/Pritom14/Password-Storage)
+[![Gitter](https://img.shields.io/badge/chat-on%20gitter-brightgreen.svg)](https://gitter.im/Password-Storage/Lobby)
 
 # [Password-Storage][playStore] ![App icon on play store][appIcon]
 

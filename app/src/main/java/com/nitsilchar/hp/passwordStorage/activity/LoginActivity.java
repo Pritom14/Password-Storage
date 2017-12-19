@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String str_Email;
     String str_Password, str_getEmail, str_getPass;
     EditText edt_Email, edt_Password;
-    Button login,register, newuser;
+    Button login, newuser;
     boolean b=false;
     Properties prop;
     private FirebaseAuth auth;

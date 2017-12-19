@@ -23,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
 
     public static SharedPreferences sh;
     public static SharedPreferences.Editor editor;
-    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +37,6 @@ public class SplashActivity extends AppCompatActivity {
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-
-        actionBar=getSupportActionBar();
-        actionBar.hide();
         sh = getSharedPreferences("myprefe", 0);
         editor = sh.edit();
         str_login_test = sh.getString("loginTest", null);

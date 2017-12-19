@@ -10,4 +10,6 @@
     <dimen name="space">15sp</dimen>
     <dimen name="text">17sp</dimen>
     <dimen name="default_card_layout_margin">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
 </resources>
