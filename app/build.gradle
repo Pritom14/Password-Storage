@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:11.0.2'
     implementation 'com.google.firebase:firebase-core:11.0.2'
     implementation 'com.android.support:design:25.4.0'
+    implementation 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     testImplementation 'junit:junit:4.12'
 
 }
