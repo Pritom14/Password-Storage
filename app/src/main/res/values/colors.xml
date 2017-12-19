@@ -8,4 +8,8 @@
     <color name="white">#FFFFFF</color>
     <color name="cyan_500">#00BCD4</color>
     <color name="light_blue_500">#03A9F4</color>
+    <color name="bg_circle_default">#666666</color>
+    <color name="description">#111111</color>
+    <color name="account_name">#000000</color>
+    <color name="icon_tint_normal">#7a7a7a</color>
 </resources>
