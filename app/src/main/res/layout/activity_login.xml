@@ -75,6 +75,7 @@
                     android:drawableLeft="@drawable/password"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    android:importantForAccessibility="no"
                     android:paddingEnd="@dimen/drawablepadding"
                     android:paddingStart="@dimen/drawablepadding"
                     android:textColor="@color/white"

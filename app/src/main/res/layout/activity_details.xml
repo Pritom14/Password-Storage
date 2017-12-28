@@ -50,6 +50,7 @@
         android:enabled="false"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
