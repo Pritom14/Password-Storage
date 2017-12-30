@@ -275,7 +275,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_share:
                 // Implement Share Feature here
             case R.id.nav_about_us:
-                // Add About Us Info here
+                Intent sendToAboutUs = new Intent(getApplicationContext(), AboutUsActivity.class);
+                startActivity(sendToAboutUs);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

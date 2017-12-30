@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nitsilchar.hp.passwordStorage">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,22 +12,26 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.MainActivity"
-            android:label="@string/manifest_label_main"></activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.DetailsActivity"
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/manifest_label_main" />
+        <activity
+            android:name=".activity.DetailsActivity"
             android:label="Information">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nitsilchar.hp.passwordStorage.activity.MainActivity"/>
+                android:value="com.nitsilchar.hp.passwordStorage.activity.MainActivity" />
         </activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginRegistrationActivity"></activity>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.LoginActivity"
+        <activity android:name=".activity.LoginRegistrationActivity" />
+        <activity
+            android:name=".activity.LoginActivity"
             android:label="@string/manifest_label_login"
-            android:theme="@style/AppThemeNoBar"/>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.RegistrationActivity"
+            android:theme="@style/AppThemeNoBar" />
+        <activity
+            android:name=".activity.RegistrationActivity"
             android:label="@string/manifest_label_register"
-            android:theme="@style/AppThemeNoBar"/>
-        <activity android:name="com.nitsilchar.hp.passwordStorage.activity.SplashActivity">
+            android:theme="@style/AppThemeNoBar" />
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,8 +41,9 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="17f1fea763a098c9beeff1537f9e9c9b96034009"
-            />
+            android:value="17f1fea763a098c9beeff1537f9e9c9b96034009" />
+
+        <activity android:name=".activity.AboutUsActivity"></activity>
     </application>
 
 </manifest>

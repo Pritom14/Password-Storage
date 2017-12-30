@@ -17,4 +17,11 @@
     <dimen name="padding_list_row">16dp</dimen>
     <dimen name="acc_text_primary">16sp</dimen>
     <dimen name="acc_text_secondary">14sp</dimen>
+    <dimen name="margin_medium">6dp</dimen>
+    <dimen name="margin_bottom">40dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="margin_large">10dp</dimen>
+    <dimen name="message_text_size">16sp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
 </resources>

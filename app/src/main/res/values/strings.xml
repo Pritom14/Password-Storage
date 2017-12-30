@@ -98,5 +98,12 @@
     <string name="action_settings">Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_description">Password Storage stores the passwords of all the websites where you have an account, so you have a secure storage of your passwords and you only have to remember your master password in order to enter the app.</string>
+    <string name="app_contributors_desc">Developed by <a href="https://github.com/Pritom14/Password-Storage/graphs/contributors">Contributors</a>.</string>
+    <string name="app_report_issues">Report Issues</string>
+    <string name="app_report_issues_desc">Please report all the issues in <a href="https://github.com/Pritom14/Password-Storage/issues">GitHub Repository Issue Tracker</a>.</string>
+    <string name="app_license_information">License</string>
+    <string name="app_license_information_desc">This project is currently licensed under the MIT License. As per the <a href="https://github.com/Pritom14/Password-Storage/blob/master/LICENSE">LICENSE.md</a>.</string>
+    <string name="app_contributors">Contributors</string>
 
 </resources>
