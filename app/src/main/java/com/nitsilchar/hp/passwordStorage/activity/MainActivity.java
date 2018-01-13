@@ -32,6 +32,7 @@ import com.crashlytics.android.Crashlytics;
 import com.nitsilchar.hp.passwordStorage.R;
 import com.nitsilchar.hp.passwordStorage.adapter.PasswordRecyclerViewAdapter;
 import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
+import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     PasswordRecyclerViewAdapter adapter;
     List<String> collection;
     List<String> myList=new ArrayList<String>();
+    List<Accounts> accountsList;
     PasswordDatabase passwordDatabase;
     AdapterView.AdapterContextMenuInfo info;
     String s;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         collection = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.listViewID);
         emptyText = (TextView)findViewById(R.id.text2);
-        adapter = new PasswordRecyclerViewAdapter(this, myList);
+        adapter = new PasswordRecyclerViewAdapter(this, accountsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         registerForContextMenu(recyclerView);
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogBuilder.setView(dialogView);
         final EditText acnt=(EditText)dialogView.findViewById(R.id.dialogEditAccID);
         final EditText pass=(EditText)dialogView.findViewById(R.id.dialogEditPassID);
+        final EditText description=(EditText)dialogView.findViewById(R.id.dialogEditDescriptionID);
         dialogBuilder.setIcon(R.mipmap.icon);
         dialogBuilder.setTitle(R.string.main_acnt_info);
         dialogBuilder.setPositiveButton(R.string.main_add, new DialogInterface.OnClickListener() {
@@ -103,9 +106,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 collection=passwordDatabase.getAcc();
                 if(!isDuplicate(collection,acnt.getText().toString())){
                     if(!TextUtils.isEmpty(acnt.getText().toString())){
-                        myList.add(acnt.getText().toString());
+                        passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),
+                                pass.getText().toString(), description.getText().toString());
+                        Accounts account = new Accounts(acnt.getText().toString(), pass.getText().toString(), description.getText().toString());
+                        accountsList.add(account);
                         adapter.notifyDataSetChanged();
-                        passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),pass.getText().toString());
                         Toast.makeText(getApplicationContext(),
                                 "Added "+acnt.getText().toString(), Toast.LENGTH_SHORT).show();
                     }
@@ -173,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return new ArrayList<String>(set);*/
         List accounts=passwordDatabase.getAcc();
         return accounts;
+    }
+
+    public List<Accounts> getAccounts(){
+        List accountsData = passwordDatabase.getAccData();
+        return accountsData;
     }
 
     @Override

@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.nitsilchar.hp.passwordStorage.model.Accounts;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +18,20 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
 
     String data1;
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "UserCredentials.db";
     public static final String TABLE_NAME = "Credentials";
     public static final String COLUMN_PASSWORD = "Password";
     public static final String COLUMN_ACCOUNT = "Account";
+    public static final String COLUMN_DESCRIPTION = "Description";
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
     private static final String TABLE_CREATE = "CREATE TABLE "
             + TABLE_NAME + " (" +  COLUMN_ACCOUNT  + " TEXT, " + COLUMN_PASSWORD
-            + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
+            + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
+
+    private static final String DATABASE_ALTER_CREDENTIALS_DESCR = "ALTER TABLE "
+            + TABLE_NAME + " ADD COLUMN " + COLUMN_DESCRIPTION + " TEXT;";
 
     public PasswordDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,19 +44,25 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL(DATABASE_ALTER_CREDENTIALS_DESCR);
+        } else
+        if (oldVersion > 2) {
+            db.execSQL(SQL_DELETE_ENTRIES);
+            onCreate(db);
+        }
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
         onUpgrade(db, oldVersion, newVersion);
     }
-    public void addCredentials(Context context,String account, String password){
+    public void addCredentials(Context context,String account, String password, String description){
         SQLiteDatabase db = this.getWritableDatabase();
         long newRowId=0;
         Boolean flag=false;
         ContentValues values = new ContentValues();
         values.put(COLUMN_ACCOUNT, account);
         values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_DESCRIPTION, description);
             newRowId = db.insert(TABLE_NAME, null, values);
     }
 
@@ -86,7 +98,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public boolean checkdb(){
         SQLiteDatabase db;
         db=this.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT * FROM"+TABLE_NAME,null);
+        Cursor cursor=db.rawQuery("SELECT * FROM  "+TABLE_NAME,null);
         Boolean rowExists;
         if (cursor.moveToFirst()){
             rowExists=false;
@@ -139,5 +151,35 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         return data1;
     }
 
+    public List<Accounts> getAccData(){
+        SQLiteDatabase db=this.getReadableDatabase();;
+        List<Accounts> accountData=new ArrayList<>();
+        Accounts accounts =null;
+        Cursor c=null;
+        try{
+            String query="SELECT * FROM " + TABLE_NAME;
+            c=db.rawQuery(query,null);
+            if(c!=null){
+                if(c.moveToFirst()){
+                    do{
+                        String account=c.getString(c.getColumnIndex(COLUMN_ACCOUNT));
+                        String pass = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
+                        String description = c.getString(c.getColumnIndex(COLUMN_DESCRIPTION));
+                        accountData.add(new Accounts(account, pass, description));
+                    }
+                    while (c.moveToNext());
+                }
+            }
+        }
+        finally {
+            if(c!=null){
+                c.close();
+            }
+            if(db!=null){
+                db.close();
+            }
+        }
+        return accountData;
+    }
 
 }
