@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         passwordDatabase = new PasswordDatabase(getApplicationContext());
         myList = getArray();
         collection = new ArrayList<>();
+        accountsList = getAccounts();
         recyclerView = (RecyclerView) findViewById(R.id.listViewID);
         emptyText = (TextView)findViewById(R.id.text2);
         adapter = new PasswordRecyclerViewAdapter(this, accountsList);
@@ -229,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         info= (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        s=myList.get(info.position);
+
         if(item.getItemId()==R.id.deletecontext){
             AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
             LayoutInflater inflater=this.getLayoutInflater();
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Toast.makeText(getApplicationContext(),
                                 "Deleted "+s,Toast.LENGTH_SHORT).show();
                         passwordDatabase.deleteRow(String.valueOf(info.position));
-                        myList.remove(info.position);
+                        accountsList.remove(info.position);
                         adapter.notifyDataSetChanged();
 
                     }
