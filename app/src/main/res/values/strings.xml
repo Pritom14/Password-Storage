@@ -56,6 +56,7 @@
 
     <string name="add_dialog_addacnt">Your account name</string>
     <string name="add_dialog_addpass">Your password</string>
+    <string name="add_description">Description</string>
 
     <string name="details_dialog_apppass">Enter your app password</string>
 

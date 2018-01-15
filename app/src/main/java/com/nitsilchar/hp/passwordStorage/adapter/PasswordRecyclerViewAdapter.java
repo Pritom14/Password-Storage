@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.nitsilchar.hp.passwordStorage.R;
 import com.nitsilchar.hp.passwordStorage.activity.DetailsActivity;
+import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
 import java.util.List;
 
@@ -23,13 +24,13 @@ import butterknife.ButterKnife;
 public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRecyclerViewAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> accounts;
+    private List<Accounts> accounts;
     private int position;
 
     public PasswordRecyclerViewAdapter() {
     }
 
-    public PasswordRecyclerViewAdapter(Context context, List<String> accounts) {
+    public PasswordRecyclerViewAdapter(Context context, List<Accounts> accounts) {
         this.context = context;
         this.accounts = accounts;
     }
@@ -42,15 +43,15 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.accountName.setText(accounts.get(position));
-        holder.description.setText("Description feature will add soon");
-        holder.iconText.setText(accounts.get(position).substring(0,1).toUpperCase());
+        holder.accountName.setText(accounts.get(position).getmAccountName());
+        holder.description.setText(accounts.get(position).getmDescription());
+        holder.iconText.setText(accounts.get(position).getmAccountName().substring(0,1).toUpperCase());
         holder.iconBg.setImageResource(R.drawable.bg_circle);
         holder.iconBg.setColorFilter(getRandomMaterialColor());
         holder.accountContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String data = accounts.get(position);
+                String data = accounts.get(position).getmAccountName();
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("Site", data);
                 context.startActivity(intent);
