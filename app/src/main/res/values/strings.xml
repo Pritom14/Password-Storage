@@ -57,6 +57,7 @@
     <string name="add_dialog_addacnt">Your account name</string>
     <string name="add_dialog_addpass">Your password</string>
     <string name="add_description">Description</string>
+    <string name="add_link">Link to Site</string>
 
     <string name="details_dialog_apppass">Enter your app password</string>
 
@@ -72,6 +73,7 @@
 
     <string name="details_xml_acnt">Account</string>
     <string name="details_xml_pass">Password</string>
+    <string name="details_xml_link">Link</string>
     <string name="details_xml_bshow">Show Password</string>
     <string name="details_xml_bmodify">Modify</string>
 

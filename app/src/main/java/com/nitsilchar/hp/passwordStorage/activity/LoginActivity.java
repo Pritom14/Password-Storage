@@ -129,16 +129,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     private void checkIfEmailVerified(){
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-        if (user.isEmailVerified()){
+        //if (user.isEmailVerified()){
             Toast.makeText(getApplicationContext(),
                     R.string.login_successful_login, Toast.LENGTH_SHORT).show();
             Intent sendToLogout = new Intent(getApplicationContext(),
                     MainActivity.class);
             startActivity(sendToLogout);
-        } else {
+        /*} else {
             Toast.makeText(getApplicationContext(),
                     R.string.login_email_notverified,Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     @Override

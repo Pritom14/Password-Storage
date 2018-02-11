@@ -48,6 +48,20 @@
                 android:textSize="18sp"
                 android:textColor="#000000"/>
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/dialogEditLink"
+                android:layout_marginTop="50dp"
+                android:hint="@string/add_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#000000"/>
+        </android.support.design.widget.TextInputLayout>
+
     </LinearLayout>
 
 

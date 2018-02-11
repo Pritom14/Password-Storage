@@ -17,21 +17,26 @@ import java.util.List;
 public final class PasswordDatabase extends SQLiteOpenHelper {
 
     String data1;
+    String data2;
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "UserCredentials.db";
     public static final String TABLE_NAME = "Credentials";
     public static final String COLUMN_PASSWORD = "Password";
     public static final String COLUMN_ACCOUNT = "Account";
     public static final String COLUMN_DESCRIPTION = "Description";
+    public static final String COLUMN_LINK = "Link";
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
     private static final String TABLE_CREATE = "CREATE TABLE "
             + TABLE_NAME + " (" +  COLUMN_ACCOUNT  + " TEXT, " + COLUMN_PASSWORD
-            + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
+            + " TEXT, " + COLUMN_LINK + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
 
     private static final String DATABASE_ALTER_CREDENTIALS_DESCR = "ALTER TABLE "
             + TABLE_NAME + " ADD COLUMN " + COLUMN_DESCRIPTION + " TEXT;";
+
+    private static final String DATABASE_ALTER_CREDENTIALS_LINK = "ALTER TABLE "
+            + TABLE_NAME + " ADD COLUMN " + COLUMN_LINK + " TEXT;";
 
     public PasswordDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,8 +51,11 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
             db.execSQL(DATABASE_ALTER_CREDENTIALS_DESCR);
+        }
+        if (oldVersion < 3) {
+            db.execSQL(DATABASE_ALTER_CREDENTIALS_LINK);
         } else
-        if (oldVersion > 2) {
+        if (oldVersion > 3) {
             db.execSQL(SQL_DELETE_ENTRIES);
             onCreate(db);
         }
@@ -55,7 +63,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
         onUpgrade(db, oldVersion, newVersion);
     }
-    public void addCredentials(Context context,String account, String password, String description){
+    public void addCredentials(Context context,String account, String password, String description, String link){
         SQLiteDatabase db = this.getWritableDatabase();
         long newRowId=0;
         Boolean flag=false;
@@ -63,6 +71,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_ACCOUNT, account);
         values.put(COLUMN_PASSWORD, password);
         values.put(COLUMN_DESCRIPTION, description);
+        values.put(COLUMN_LINK, link);
             newRowId = db.insert(TABLE_NAME, null, values);
     }
 
@@ -140,7 +149,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
 
     public String getData(String data){
         SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] { COLUMN_ACCOUNT,COLUMN_PASSWORD
+        Cursor cursor = db.query(TABLE_NAME, new String[] { COLUMN_ACCOUNT,COLUMN_PASSWORD, COLUMN_LINK
                 }, COLUMN_ACCOUNT + " = ?", new String[] { data },
                 null, null, null, null);
         if (cursor!=null && cursor.moveToFirst()){
@@ -149,6 +158,19 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return data1;
+    }
+
+    public String getLink(String data){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[] { COLUMN_ACCOUNT, COLUMN_LINK
+                }, COLUMN_ACCOUNT + " = ?", new String[] { data },
+                null, null, null, null);
+        if (cursor!=null && cursor.moveToFirst()){
+            do{
+                data2=cursor.getString(1);
+            }while (cursor.moveToNext());
+        }
+        return data2;
     }
 
     public List<Accounts> getAccData(){
@@ -165,7 +187,8 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
                         String account=c.getString(c.getColumnIndex(COLUMN_ACCOUNT));
                         String pass = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
                         String description = c.getString(c.getColumnIndex(COLUMN_DESCRIPTION));
-                        accountData.add(new Accounts(account, pass, description));
+                        String link =  c.getString(c.getColumnIndex(COLUMN_LINK));
+                        accountData.add(new Accounts(account, pass, description, link));
                     }
                     while (c.moveToNext());
                 }
