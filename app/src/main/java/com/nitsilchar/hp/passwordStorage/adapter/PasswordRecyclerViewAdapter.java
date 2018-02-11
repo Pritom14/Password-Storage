@@ -1,6 +1,8 @@
 package com.nitsilchar.hp.passwordStorage.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -8,12 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nitsilchar.hp.passwordStorage.R;
 import com.nitsilchar.hp.passwordStorage.activity.DetailsActivity;
+import com.nitsilchar.hp.passwordStorage.activity.MainActivity;
+import com.nitsilchar.hp.passwordStorage.activity.SplashActivity;
+import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
 import java.util.List;
@@ -25,14 +32,15 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
 
     private Context context;
     private List<Accounts> accounts;
-    private int position;
-
+    PasswordDatabase passwordDatabase;
     public PasswordRecyclerViewAdapter() {
     }
 
     public PasswordRecyclerViewAdapter(Context context, List<Accounts> accounts) {
         this.context = context;
         this.accounts = accounts;
+        passwordDatabase = new PasswordDatabase(context);
+
     }
 
     @Override
@@ -55,6 +63,43 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("Site", data);
                 context.startActivity(intent);
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                final View dialogView=LayoutInflater.from(context).inflate(R.layout.confirm_delete,null);
+                dialogBuilder.setView(dialogView);
+                final EditText pass1=(EditText)dialogView.findViewById(R.id.passDialog);
+                dialogBuilder.setTitle("Confirm deletion?");
+                dialogBuilder.setIcon(R.mipmap.icon);
+                dialogBuilder.setPositiveButton(R.string.main_confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(pass1.getText().toString().equals(SplashActivity.sh.getString("password",null))){
+                            Toast.makeText(context,
+                                    "Deleted!",Toast.LENGTH_SHORT).show();
+                            passwordDatabase.deleteRow(accounts.get(position).getmAccountName());
+                            accounts.remove(accounts.get(position));
+                            notifyDataSetChanged();
+
+                        }
+                        else{
+                            Toast.makeText(context,R.string.main_wrong_pass,Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                dialogBuilder.setNegativeButton(R.string.main_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog b= dialogBuilder.create();
+                b.show();
+                return false;
             }
         });
     }

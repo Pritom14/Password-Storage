@@ -223,54 +223,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.context_menu, menu);
-    }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        info= (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-        if(item.getItemId()==R.id.deletecontext){
-            AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
-            LayoutInflater inflater=this.getLayoutInflater();
-            final View dialogView=inflater.inflate(R.layout.confirm_delete,null);
-            dialogBuilder.setView(dialogView);
-            final EditText pass1=(EditText)dialogView.findViewById(R.id.passDialog);
-            dialogBuilder.setTitle("Are you sure you want to delete "+s);
-            dialogBuilder.setIcon(R.mipmap.icon);
-            dialogBuilder.setPositiveButton(R.string.main_confirm, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if(pass1.getText().toString().equals(SplashActivity.sh.getString("password",null))){
-                        Toast.makeText(getApplicationContext(),
-                                "Deleted "+s,Toast.LENGTH_SHORT).show();
-                        passwordDatabase.deleteRow(String.valueOf(info.position));
-                        accountsList.remove(info.position);
-                        adapter.notifyDataSetChanged();
-
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),R.string.main_wrong_pass,Toast.LENGTH_LONG);
-                    }
-                }
-            });
-
-            dialogBuilder.setNegativeButton(R.string.main_cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog b=dialogBuilder.create();
-            b.show();
-            return true;
-        }
-        else
-        return super.onContextItemSelected(item);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
