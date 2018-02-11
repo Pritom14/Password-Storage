@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new PasswordRecyclerViewAdapter(this, accountsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        registerForContextMenu(recyclerView);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -65,7 +65,7 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
                 context.startActivity(intent);
             }
         });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.accountContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
