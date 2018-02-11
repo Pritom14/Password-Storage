@@ -1,9 +1,16 @@
 package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +25,7 @@ import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import io.fabric.sdk.android.Fabric;
 
 public class DetailsActivity extends AppCompatActivity {
-    TextView site_name,site_pass;
+    TextView site_name,site_pass, site_link;
     PasswordDatabase db;
     EditText password;
     Button modify;
@@ -35,6 +42,7 @@ public class DetailsActivity extends AppCompatActivity {
         db=new PasswordDatabase(getApplicationContext());
         site_name=(TextView)findViewById(R.id.displaySiteTextId);
         site_pass=(TextView)findViewById(R.id.displaySitePassId);
+        site_link=(TextView)findViewById(R.id.displaySiteLink);
         modify=(Button)findViewById(R.id.modifyButton);
         showPassword = (Button) findViewById(R.id.showpassword);
         modify.setVisibility(View.INVISIBLE);
@@ -43,6 +51,21 @@ public class DetailsActivity extends AppCompatActivity {
         pass=db.getData(s);
         site_name.setText(s);
         site_pass.setText("**********");
+        site_link.setText(db.getLink(s));
+        site_link.setPaintFlags(site_link.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        if (site_link != null) {
+            site_link.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        /*site_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String url = db.getLink(s);
+                Intent intent= new Intent(Intent.ACTION_VIEW,Uri.parse("https://"+url));
+                Log.d("URL: ", Uri.parse("https://"+url).toString());
+                startActivity(intent);
+            }
+        });*/
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,4 +136,5 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
+
 }
