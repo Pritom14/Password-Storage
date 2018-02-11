@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final EditText acnt=(EditText)dialogView.findViewById(R.id.dialogEditAccID);
         final EditText pass=(EditText)dialogView.findViewById(R.id.dialogEditPassID);
         final EditText description=(EditText)dialogView.findViewById(R.id.dialogEditDescriptionID);
+        //added by Arti
+        final EditText link=(EditText)dialogView.findViewById(R.id.dialogEditLink);
         dialogBuilder.setIcon(R.mipmap.icon);
         dialogBuilder.setTitle(R.string.main_acnt_info);
         dialogBuilder.setPositiveButton(R.string.main_add, new DialogInterface.OnClickListener() {
@@ -108,8 +110,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(!isDuplicate(collection,acnt.getText().toString())){
                     if(!TextUtils.isEmpty(acnt.getText().toString())){
                         passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),
-                                pass.getText().toString(), description.getText().toString());
-                        Accounts account = new Accounts(acnt.getText().toString(), pass.getText().toString(), description.getText().toString());
+                                pass.getText().toString(), description.getText().toString(), link.getText().toString());
+                        Accounts account = new Accounts(acnt.getText().toString(), pass.getText().toString(), description.getText().toString(), link.getText().toString());
                         accountsList.add(account);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(),

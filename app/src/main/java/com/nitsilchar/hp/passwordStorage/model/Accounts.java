@@ -4,11 +4,13 @@ public class Accounts {
     private String mAccountName;
     private String mPass;
     private String mDescription;
+    private String mLink;
 
-    public Accounts(String accountName, String pass, String description) {
+    public Accounts(String accountName, String pass, String description, String link) {
         mAccountName = accountName;
         mPass = pass;
         mDescription = description;
+        mLink = link;
     }
 
     public String getmAccountName() {
@@ -36,4 +38,11 @@ public class Accounts {
         this.mDescription = mDescription;
     }
 
+    public String getmLink() {
+        return mLink;
+    }
+
+    public void setmLink(String mLink) {
+        this.mLink = mLink;
+    }
 }
