@@ -1,6 +1,8 @@
 package com.nitsilchar.hp.passwordStorage.activity;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.ContextMenu;
@@ -41,7 +44,7 @@ import java.util.Set;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PasswordRecyclerViewAdapter.AccountsAdapterListener {
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
     private RecyclerView recyclerView;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     List<String> myList=new ArrayList<String>();
     List<Accounts> accountsList;
     PasswordDatabase passwordDatabase;
+    private SearchView searchView;
     AdapterView.AdapterContextMenuInfo info;
     String s;
 
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accountsList = getAccounts();
         recyclerView = (RecyclerView) findViewById(R.id.listViewID);
         emptyText = (TextView)findViewById(R.id.text2);
-        adapter = new PasswordRecyclerViewAdapter(this, accountsList);
+        adapter = new PasswordRecyclerViewAdapter(this, accountsList,  this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -148,6 +152,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search_button)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // listening to search query text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                adapter.getFilter().filter(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                adapter.getFilter().filter(query);
+                return true;
+            }
+        });
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -156,13 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
     }
 
     public boolean saveArray(){
@@ -247,6 +275,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onAccountSelected(Accounts accounts) {
+        Toast.makeText(getApplicationContext(), "Selected: " +accounts.getmAccountName() , Toast.LENGTH_LONG).show();
     }
 }
 

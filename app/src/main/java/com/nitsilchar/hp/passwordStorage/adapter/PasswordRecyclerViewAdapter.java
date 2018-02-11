@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.Filter;
+import android.widget.Filterable;
 import com.nitsilchar.hp.passwordStorage.R;
 import com.nitsilchar.hp.passwordStorage.activity.DetailsActivity;
 import com.nitsilchar.hp.passwordStorage.activity.MainActivity;
@@ -23,22 +24,28 @@ import com.nitsilchar.hp.passwordStorage.activity.SplashActivity;
 import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRecyclerViewAdapter.ViewHolder> {
+public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRecyclerViewAdapter.ViewHolder> implements Filterable{
 
+    AccountsFilter accountsFilter;
     private Context context;
     private List<Accounts> accounts;
+    private List<Accounts> accountsFiltered;
+    private AccountsAdapterListener listener;
     PasswordDatabase passwordDatabase;
     public PasswordRecyclerViewAdapter() {
     }
 
-    public PasswordRecyclerViewAdapter(Context context, List<Accounts> accounts) {
+    public PasswordRecyclerViewAdapter(Context context, List<Accounts> accounts, AccountsAdapterListener listener) {
+        this.listener = listener;
         this.context = context;
         this.accounts = accounts;
+        this.accountsFiltered =  accounts;
         passwordDatabase = new PasswordDatabase(context);
 
     }
@@ -51,15 +58,15 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.accountName.setText(accounts.get(position).getmAccountName());
-        holder.description.setText(accounts.get(position).getmDescription());
-        holder.iconText.setText(accounts.get(position).getmAccountName().substring(0,1).toUpperCase());
+        holder.accountName.setText(accountsFiltered.get(position).getmAccountName());
+        holder.description.setText(accountsFiltered.get(position).getmDescription());
+        holder.iconText.setText(accountsFiltered.get(position).getmAccountName().substring(0,1).toUpperCase());
         holder.iconBg.setImageResource(R.drawable.bg_circle);
         holder.iconBg.setColorFilter(getRandomMaterialColor());
         holder.accountContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String data = accounts.get(position).getmAccountName();
+                String data = accountsFiltered.get(position).getmAccountName();
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("Site", data);
                 context.startActivity(intent);
@@ -80,8 +87,8 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
                         if(pass1.getText().toString().equals(SplashActivity.sh.getString("password",null))){
                             Toast.makeText(context,
                                     "Deleted!",Toast.LENGTH_SHORT).show();
-                            passwordDatabase.deleteRow(accounts.get(position).getmAccountName());
-                            accounts.remove(accounts.get(position));
+                            passwordDatabase.deleteRow(accountsFiltered.get(position).getmAccountName());
+                            accounts.remove(accountsFiltered.get(position));
                             notifyDataSetChanged();
 
                         }
@@ -119,10 +126,49 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
 
     @Override
     public int getItemCount() {
-        return accounts.size();
+        return accountsFiltered.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Filter getFilter() {
+        if (accountsFilter == null)
+            accountsFilter = new AccountsFilter();
+
+        return accountsFilter;
+    }
+
+    private class AccountsFilter extends Filter{
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults filterResults = new FilterResults();
+            String charString = charSequence.toString();
+            if (charString.isEmpty()) {
+                accountsFiltered = accounts;
+            } else {
+                List<Accounts> filteredList = new ArrayList<>();
+                for (Accounts row : accounts) {
+
+                    if (row.getmAccountName().toUpperCase().contains(charString.toUpperCase())) {
+                        filteredList.add(row);
+                    }
+                }
+                accountsFiltered = filteredList;
+            }
+            filterResults.values = accountsFiltered;
+            filterResults.count= accountsFiltered.size();
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            accountsFiltered = (ArrayList<Accounts>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    }
+
+
+        class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.account_container)
         LinearLayout accountContainer;
@@ -138,6 +184,19 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+
+           itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onAccountSelected(accounts.get(getAdapterPosition()));
+                }
+            });
         }
+
+    }
+
+    public interface AccountsAdapterListener {
+        void onAccountSelected(Accounts accounts);
     }
 }
