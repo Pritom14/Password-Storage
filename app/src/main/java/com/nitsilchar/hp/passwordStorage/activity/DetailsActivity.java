@@ -53,8 +53,11 @@ public class DetailsActivity extends AppCompatActivity {
         site_pass.setText("**********");
         site_link.setText(db.getLink(s));
         site_link.setPaintFlags(site_link.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        if (site_link != null) {
+            site_link.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
-        site_link.setOnClickListener(new View.OnClickListener() {
+        /*site_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String url = db.getLink(s);
@@ -62,7 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
                 Log.d("URL: ", Uri.parse("https://"+url).toString());
                 startActivity(intent);
             }
-        });
+        });*/
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
