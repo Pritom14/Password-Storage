@@ -263,13 +263,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent sendToLoginAndRegistration = new Intent(getApplicationContext(),
                         LoginActivity.class);
                 startActivity(sendToLoginAndRegistration);
+                break;
             case R.id.nav_settings:
                 // Implement Settings Feature here
             case R.id.nav_share:
-                // Implement Share Feature here
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = "Are you frustrated with remembering numerous passwords, and want a secure way of saving them paperlessly? Download the app now and memorize only one master password! https://goo.gl/X1yJj2";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Password Storage");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+                break;
             case R.id.nav_about_us:
                 Intent sendToAboutUs = new Intent(getApplicationContext(), AboutUsActivity.class);
                 startActivity(sendToAboutUs);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
