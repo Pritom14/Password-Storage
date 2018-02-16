@@ -37,6 +37,8 @@ import com.nitsilchar.hp.passwordStorage.adapter.PasswordRecyclerViewAdapter;
 import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String SHARED_PREFS_NAME="MyPrefs";
     private RecyclerView recyclerView;
-    TextView emptyText;
+    TextView emptyText, email;
     PasswordRecyclerViewAdapter adapter;
     List<String> collection;
     List<String> myList=new ArrayList<String>();
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accountsList = getAccounts();
         recyclerView = (RecyclerView) findViewById(R.id.listViewID);
         emptyText = (TextView)findViewById(R.id.text2);
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+        email = (TextView) header.findViewById(R.id.edt_profile_email);
+        email.setText(getIntent().getStringExtra("email"));
         adapter = new PasswordRecyclerViewAdapter(this, accountsList,  this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -265,7 +270,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(sendToLoginAndRegistration);
                 break;
             case R.id.nav_settings:
-                // Implement Settings Feature here
+                Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+                settings.putExtra("email", getIntent().getStringExtra("email"));
+                startActivity(settings);
+                break;
             case R.id.nav_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
