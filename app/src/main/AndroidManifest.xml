@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/manifest_label_main" >
-
+            android:label="@string/manifest_label_main">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -24,7 +23,6 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.DetailsActivity"
             android:label="Information">
@@ -53,7 +51,8 @@
             android:name="io.fabric.ApiKey"
             android:value="17f1fea763a098c9beeff1537f9e9c9b96034009" />
 
-        <activity android:name=".activity.AboutUsActivity"></activity>
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

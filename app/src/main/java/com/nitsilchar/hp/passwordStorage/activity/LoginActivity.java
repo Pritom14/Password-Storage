@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     R.string.login_successful_login, Toast.LENGTH_SHORT).show();
             Intent sendToLogout = new Intent(getApplicationContext(),
                     MainActivity.class);
+            sendToLogout.putExtra("email", str_Email);
             startActivity(sendToLogout);
         } else {
             Toast.makeText(getApplicationContext(),

@@ -88,10 +88,12 @@
     <string name="email">Email</string>
 
     <string name="password">Password</string>
+    <string name="pass_change">Change Password</string>
 
     <string name="confirmpassword">Confirm Password</string>
 
     <string name="newuser">New User? Register Here.</string>
+    <string name="no_match">Wrong current Password</string>
 
     <string name="existinguser">Already Registered? Login Here.</string>
 
