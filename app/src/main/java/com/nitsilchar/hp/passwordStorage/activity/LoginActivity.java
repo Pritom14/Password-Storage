@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -109,15 +110,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this,
-                                                R.string.login_authentication_failed, Toast.LENGTH_LONG).show();
-                                    } else {
+
 
                                         checkIfEmailVerified();
-                                    }
+
                                 }
-                            });
+                            }).addOnFailureListener(LoginActivity.this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LoginActivity.this,
+                                    R.string.login_authentication_failed, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             } catch (Exception e) {

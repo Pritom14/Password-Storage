@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nitsilchar.hp.passwordStorage.R;
@@ -81,17 +82,24 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     progressBar.setVisibility(View.GONE);
-                                    if (!task.isSuccessful()) {
+                                    /*if (!task.isSuccessful()) {
                                         Toast.makeText(SettingsActivity.this,
                                                 "Could not update password", Toast.LENGTH_LONG).show();
-                                    } else {
+                                    } else {*/
                                         Toast.makeText(SettingsActivity.this,
                                                 "Password update successful", Toast.LENGTH_LONG).show();
+                                        SplashActivity.editor.putString("password", str_New);
+                                        SplashActivity.editor.commit();
                                         edt_new.setText("");
                                         edt_old.setText("");
                                         edt_verify.setText("");
                                         onBackPressed();
-                                    }
+                                   // }
+                                }
+                            }).addOnFailureListener(SettingsActivity.this, new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SettingsActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
