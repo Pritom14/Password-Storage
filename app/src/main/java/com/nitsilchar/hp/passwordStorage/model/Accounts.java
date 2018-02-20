@@ -13,6 +13,10 @@ public class Accounts {
         mLink = link;
     }
 
+    public Accounts(){
+
+    }
+
     public String getmAccountName() {
         return mAccountName;
     }

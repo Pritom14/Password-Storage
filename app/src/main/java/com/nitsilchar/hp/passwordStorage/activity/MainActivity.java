@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +44,7 @@ import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String SHARED_PREFS_NAME="MyPrefs";
     private RecyclerView recyclerView;
     TextView emptyText, email;
+    ImageView profile;
     PasswordRecyclerViewAdapter adapter;
     List<String> collection;
     List<String> myList=new ArrayList<String>();
@@ -59,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchView searchView;
     AdapterView.AdapterContextMenuInfo info;
     String s;
+    int flag=1;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +82,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emptyText = (TextView)findViewById(R.id.text2);
         View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
         email = (TextView) header.findViewById(R.id.edt_profile_email);
+        profile = (ImageView) header.findViewById(R.id.img_profile_picture);
         email.setText(getIntent().getStringExtra("email"));
         adapter = new PasswordRecyclerViewAdapter(this, accountsList,  this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));
+        try{profile.setImageBitmap(passwordDatabase.getPic());}
+        catch(Exception e){flag=0;}
+        Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -296,6 +318,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onAccountSelected(Accounts accounts) {
         Toast.makeText(getApplicationContext(), "Selected: " +accounts.getmAccountName() , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                if(flag==1) {passwordDatabase.updatePic(bitmap); Log.d("AAAAAFLLLLLAAAGGG", "no change");}
+                else if(flag==0) {passwordDatabase.setPic(bitmap); flag=1; Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));}
+
+                profile.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Picture");
+        builder.setMessage("Proceed to Edit profile picture?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
 

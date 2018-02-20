@@ -4,9 +4,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +25,23 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     String data1;
     String data2;
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "UserCredentials.db";
     public static final String TABLE_NAME = "Credentials";
     public static final String COLUMN_PASSWORD = "Password";
     public static final String COLUMN_ACCOUNT = "Account";
     public static final String COLUMN_DESCRIPTION = "Description";
     public static final String COLUMN_LINK = "Link";
+    public static final String COLUMN_PHOTO = "Photo";
+    public static final String ID = "id";
+    public static final String PHOTO_TABLE = "Profile";
+
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    public static final String SQL_DELETE_PHOTO =
+            "DROP TABLE IF EXISTS " + PHOTO_TABLE;
+
     private static final String TABLE_CREATE = "CREATE TABLE "
             + TABLE_NAME + " (" +  COLUMN_ACCOUNT  + " TEXT, " + COLUMN_PASSWORD
             + " TEXT, " + COLUMN_LINK + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
@@ -38,6 +52,12 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_ALTER_CREDENTIALS_LINK = "ALTER TABLE "
             + TABLE_NAME + " ADD COLUMN " + COLUMN_LINK + " TEXT;";
 
+    private static final String CREATE_PHOTO_TABLE = "create table "
+            + PHOTO_TABLE + " (" + ID
+            + " integer primary key autoincrement, " + COLUMN_PHOTO
+            + " blob " + "  );";
+
+
     public PasswordDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -45,6 +65,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        db.execSQL(CREATE_PHOTO_TABLE);
     }
 
     @Override
@@ -54,9 +75,13 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion < 3) {
             db.execSQL(DATABASE_ALTER_CREDENTIALS_LINK);
-        } else
-        if (oldVersion > 3) {
+        }
+        if (oldVersion < 4) {
+            db.execSQL(CREATE_PHOTO_TABLE);
+        }else
+        if (oldVersion > 4) {
             db.execSQL(SQL_DELETE_ENTRIES);
+            db.execSQL(SQL_DELETE_PHOTO);
             onCreate(db);
         }
     }
@@ -203,6 +228,44 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
             }
         }
         return accountData;
+    }
+
+    public void setPic(Bitmap bitmap){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        values.put(COLUMN_PHOTO, stream.toByteArray());
+        db.insert(PHOTO_TABLE, null, values);
+        Log.d("AAAAAAAAAAAAAAAA", "set");
+        db.close();
+    }
+
+    public void updatePic(Bitmap bitmap){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        values.put(COLUMN_PHOTO, stream.toByteArray());
+        db.update(PHOTO_TABLE, values, ID+"=?", new String[]{"1"});
+        Log.d("AAAAAAAAAAAAAAAA", "updated");
+        db.close();
+    }
+
+    public Bitmap getPic(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(PHOTO_TABLE, new String[]{COLUMN_PHOTO}, null, null,null,null,null);
+        byte[] image = new byte[]{};
+        if (cursor.moveToFirst()) {
+            do {
+                image= cursor.getBlob(0);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
 }
