@@ -6,13 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -64,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     List<Accounts> accountsList;
     PasswordDatabase passwordDatabase;
     private SearchView searchView;
-    AdapterView.AdapterContextMenuInfo info;
-    String s;
     int flag=1;
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -87,10 +92,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new PasswordRecyclerViewAdapter(this, accountsList,  this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));
-        try{profile.setImageBitmap(passwordDatabase.getPic());}
-        catch(Exception e){flag=0;}
-        Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));
+        try{profile.setImageBitmap(passwordDatabase.getPic());
+            RoundedBitmapDrawable roundedImageDrawable = createRoundedBitmapImageDrawableWithBorder(passwordDatabase.getPic());
+            profile.setImageDrawable(roundedImageDrawable);}
+        catch(Exception e){flag=0; profile.setImageResource(R.mipmap.ic_launcher_round);}
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,10 +335,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                if(flag==1) {passwordDatabase.updatePic(bitmap); Log.d("AAAAAFLLLLLAAAGGG", "no change");}
-                else if(flag==0) {passwordDatabase.setPic(bitmap); flag=1; Log.d("AAAAAFLLLLLAAAGGG", String.valueOf(flag));}
+                if(flag==1) {passwordDatabase.updatePic(bitmap); }
+                else if(flag==0) {passwordDatabase.setPic(bitmap); flag=1; }
 
                 profile.setImageBitmap(bitmap);
+                //round image
+                RoundedBitmapDrawable roundedImageDrawable = createRoundedBitmapImageDrawableWithBorder(bitmap);
+                profile.setImageDrawable(roundedImageDrawable);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -360,6 +368,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private RoundedBitmapDrawable createRoundedBitmapImageDrawableWithBorder(Bitmap bitmap){
+        int bitmapWidthImage = bitmap.getWidth();
+        int bitmapHeightImage = bitmap.getHeight();
+        int borderWidthHalfImage = 4;
+
+        int bitmapRadiusImage = Math.min(bitmapWidthImage,bitmapHeightImage)/2;
+        int bitmapSquareWidthImage = Math.min(bitmapWidthImage,bitmapHeightImage);
+        int newBitmapSquareWidthImage = bitmapSquareWidthImage+borderWidthHalfImage;
+
+        Bitmap roundedImageBitmap = Bitmap.createBitmap(newBitmapSquareWidthImage,newBitmapSquareWidthImage,Bitmap.Config.ARGB_8888);
+        Canvas mcanvas = new Canvas(roundedImageBitmap);
+        mcanvas.drawColor(Color.RED);
+        int i = borderWidthHalfImage + bitmapSquareWidthImage - bitmapWidthImage;
+        int j = borderWidthHalfImage + bitmapSquareWidthImage - bitmapHeightImage;
+
+        mcanvas.drawBitmap(bitmap, i, j, null);
+
+        Paint borderImagePaint = new Paint();
+        borderImagePaint.setStyle(Paint.Style.STROKE);
+        borderImagePaint.setStrokeWidth(borderWidthHalfImage*2);
+        borderImagePaint.setColor(Color.GRAY);
+        mcanvas.drawCircle(mcanvas.getWidth()/2, mcanvas.getWidth()/2, newBitmapSquareWidthImage/2, borderImagePaint);
+
+        RoundedBitmapDrawable roundedImageBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),roundedImageBitmap);
+        roundedImageBitmapDrawable.setCornerRadius(bitmapRadiusImage);
+        roundedImageBitmapDrawable.setAntiAlias(true);
+        return roundedImageBitmapDrawable;
+    }
+
 }
 
 
