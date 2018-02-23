@@ -6,10 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,6 +39,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +51,7 @@ import com.nitsilchar.hp.passwordStorage.model.Accounts;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,14 +64,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String SHARED_PREFS_NAME="MyPrefs";
     private RecyclerView recyclerView;
     TextView emptyText, email;
+    ImageView profile;
     PasswordRecyclerViewAdapter adapter;
     List<String> collection;
     List<String> myList=new ArrayList<String>();
     List<Accounts> accountsList;
     PasswordDatabase passwordDatabase;
     private SearchView searchView;
-    AdapterView.AdapterContextMenuInfo info;
-    String s;
+    int flag=1;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +87,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emptyText = (TextView)findViewById(R.id.text2);
         View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
         email = (TextView) header.findViewById(R.id.edt_profile_email);
+        profile = (ImageView) header.findViewById(R.id.img_profile_picture);
         email.setText(getIntent().getStringExtra("email"));
         adapter = new PasswordRecyclerViewAdapter(this, accountsList,  this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        try{profile.setImageBitmap(passwordDatabase.getPic());
+            RoundedBitmapDrawable roundedImageDrawable = createRoundedBitmapImageDrawableWithBorder(passwordDatabase.getPic());
+            profile.setImageDrawable(roundedImageDrawable);}
+        catch(Exception e){flag=0; profile.setImageResource(R.mipmap.ic_launcher_round);}
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -297,6 +324,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onAccountSelected(Accounts accounts) {
         Toast.makeText(getApplicationContext(), "Selected: " +accounts.getmAccountName() , Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                if(flag==1) {passwordDatabase.updatePic(bitmap); }
+                else if(flag==0) {passwordDatabase.setPic(bitmap); flag=1; }
+
+                profile.setImageBitmap(bitmap);
+                //round image
+                RoundedBitmapDrawable roundedImageDrawable = createRoundedBitmapImageDrawableWithBorder(bitmap);
+                profile.setImageDrawable(roundedImageDrawable);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Picture");
+        builder.setMessage("Proceed to Edit profile picture?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private RoundedBitmapDrawable createRoundedBitmapImageDrawableWithBorder(Bitmap bitmap){
+        int bitmapWidthImage = bitmap.getWidth();
+        int bitmapHeightImage = bitmap.getHeight();
+        int borderWidthHalfImage = 4;
+
+        int bitmapRadiusImage = Math.min(bitmapWidthImage,bitmapHeightImage)/2;
+        int bitmapSquareWidthImage = Math.min(bitmapWidthImage,bitmapHeightImage);
+        int newBitmapSquareWidthImage = bitmapSquareWidthImage+borderWidthHalfImage;
+
+        Bitmap roundedImageBitmap = Bitmap.createBitmap(newBitmapSquareWidthImage,newBitmapSquareWidthImage,Bitmap.Config.ARGB_8888);
+        Canvas mcanvas = new Canvas(roundedImageBitmap);
+        mcanvas.drawColor(Color.RED);
+        int i = borderWidthHalfImage + bitmapSquareWidthImage - bitmapWidthImage;
+        int j = borderWidthHalfImage + bitmapSquareWidthImage - bitmapHeightImage;
+
+        mcanvas.drawBitmap(bitmap, i, j, null);
+
+        Paint borderImagePaint = new Paint();
+        borderImagePaint.setStyle(Paint.Style.STROKE);
+        borderImagePaint.setStrokeWidth(borderWidthHalfImage*2);
+        borderImagePaint.setColor(Color.GRAY);
+        mcanvas.drawCircle(mcanvas.getWidth()/2, mcanvas.getWidth()/2, newBitmapSquareWidthImage/2, borderImagePaint);
+
+        RoundedBitmapDrawable roundedImageBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(),roundedImageBitmap);
+        roundedImageBitmapDrawable.setCornerRadius(bitmapRadiusImage);
+        roundedImageBitmapDrawable.setAntiAlias(true);
+        return roundedImageBitmapDrawable;
+    }
+
 }
 
 
