@@ -24,6 +24,7 @@
                 android:hint="@string/delete_dialog_confirm"
                 android:layout_marginTop="15dp"
                 android:inputType="textPassword"
+                android:importantForAccessibility="no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
