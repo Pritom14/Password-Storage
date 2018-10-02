@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,7 +198,7 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
         @BindView(R.id.icon_bg)
         ImageView iconBg;
         @BindView(R.id.icon_fav)
-        ImageView iconFav;
+        private ImageView iconFav;
 
         public ViewHolder(View itemView) {
             super(itemView);
