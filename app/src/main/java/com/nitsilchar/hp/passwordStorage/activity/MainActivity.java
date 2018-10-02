@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(!isDuplicate(collection,acnt.getText().toString())){
                     if(!TextUtils.isEmpty(acnt.getText().toString())){
                         passwordDatabase.addCredentials(getApplicationContext(),acnt.getText().toString(),
-                                pass.getText().toString(), description.getText().toString(), link.getText().toString());
-                        Accounts account = new Accounts(acnt.getText().toString(), pass.getText().toString(), description.getText().toString(), link.getText().toString());
+                                pass.getText().toString(), description.getText().toString(), link.getText().toString(), "0");
+                        Accounts account = new Accounts(acnt.getText().toString(), pass.getText().toString(), description.getText().toString(), link.getText().toString(), "0");
                         accountsList.add(account);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(),

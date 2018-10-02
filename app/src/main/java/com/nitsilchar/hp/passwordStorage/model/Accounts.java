@@ -5,12 +5,14 @@ public class Accounts {
     private String mPass;
     private String mDescription;
     private String mLink;
+    private String mFav;
 
-    public Accounts(String accountName, String pass, String description, String link) {
+    public Accounts(String accountName, String pass, String description, String link, String fav) {
         mAccountName = accountName;
         mPass = pass;
         mDescription = description;
         mLink = link;
+        mFav = fav;
     }
 
     public Accounts(){
@@ -48,5 +50,13 @@ public class Accounts {
 
     public void setmLink(String mLink) {
         this.mLink = mLink;
+    }
+
+    public String getmFav() {
+        return mFav;
+    }
+
+    public void setmFav(String mFav) {
+        this.mFav = mFav;
     }
 }
