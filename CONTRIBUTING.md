@@ -16,7 +16,7 @@ If you're unable to find an open issue addressing the problem, [open a new one](
 Enhancements will be tracked as [Issues](https://github.com/Pritom14/Password-Storage/issues), so please use the same guideline as bugs.
 
 ### Pull Requests
-We actively welcome your pull requests but make sure you follow the workflow bellow.
+We actively welcome your pull requests but make sure you follow the workflow below.
 
 1. Fork the repository.
 2. Create your branch from `master`.
