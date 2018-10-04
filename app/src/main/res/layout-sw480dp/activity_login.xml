@@ -19,6 +19,8 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:background="@drawable/border"
+        android:padding="15dp"
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,6 +29,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="80dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -77,13 +80,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space"
-                android:background="@drawable/greenbutton">
+               >
 
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="@drawable/button_background"
                     android:text="@string/manifest_label_login"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text"
@@ -92,12 +95,13 @@
             </LinearLayout>
 
             <Button
+                android:layout_marginTop="15dp"
                 android:id="@+id/newuser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/button2"
                 android:text="@string/newuser"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/space"
