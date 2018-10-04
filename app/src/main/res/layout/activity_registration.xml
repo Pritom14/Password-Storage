@@ -62,6 +62,8 @@
                 android:layout_height="wrap_content"
                 app:hintTextAppearance="@color/white"
                 android:textColorHint="@color/white"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/icon_selector"
                 app:passwordToggleTint="@color/white">
 
                 <android.support.design.widget.TextInputEditText
