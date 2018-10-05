@@ -117,13 +117,14 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
             public void onClick(View view) {
                 String clickedAccount = accountsFiltered.get(position).getmAccountName();
                 if (!accountsFiltered.get(position).getmFav().equals("0")){
-                    passwordDatabase.setFavorite(clickedAccount, "0");
-                    holder.iconFav.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    if (passwordDatabase.setFavorite(clickedAccount, "0") == 1)
+                        accountsFiltered.get(position).setmFav("0");
                 }
                 else{
-                    passwordDatabase.setFavorite(clickedAccount, "1");
-                    holder.iconFav.setImageResource(R.drawable.ic_star_black_24dp);
+                    if (passwordDatabase.setFavorite(clickedAccount, "1") == 1)
+                        accountsFiltered.get(position).setmFav("1");
                 }
+                notifyDataSetChanged();
             }
         });
     }
@@ -198,7 +199,7 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
         @BindView(R.id.icon_bg)
         ImageView iconBg;
         @BindView(R.id.icon_fav)
-        private ImageView iconFav;
+        ImageView iconFav;
 
         public ViewHolder(View itemView) {
             super(itemView);
