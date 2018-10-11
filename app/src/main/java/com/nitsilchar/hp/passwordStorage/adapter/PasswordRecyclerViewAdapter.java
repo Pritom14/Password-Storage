@@ -199,7 +199,7 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
         @BindView(R.id.icon_bg)
         ImageView iconBg;
         @BindView(R.id.icon_fav)
-        private ImageView iconFav;
+        ImageView iconFav;
 
         public ViewHolder(View itemView) {
             super(itemView);
