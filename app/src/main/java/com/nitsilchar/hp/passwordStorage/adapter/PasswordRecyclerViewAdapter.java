@@ -19,7 +19,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import com.nitsilchar.hp.passwordStorage.R;
 import com.nitsilchar.hp.passwordStorage.activity.DetailsActivity;
-import com.nitsilchar.hp.passwordStorage.activity.MainActivity;
 import com.nitsilchar.hp.passwordStorage.activity.SplashActivity;
 import com.nitsilchar.hp.passwordStorage.database.PasswordDatabase;
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
@@ -57,12 +56,16 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.accountName.setText(accountsFiltered.get(position).getmAccountName());
         holder.description.setText(accountsFiltered.get(position).getmDescription());
         holder.iconText.setText(accountsFiltered.get(position).getmAccountName().substring(0,1).toUpperCase());
         holder.iconBg.setImageResource(R.drawable.bg_circle);
         holder.iconBg.setColorFilter(getRandomMaterialColor());
+        if (!accountsFiltered.get(position).getmFav().equals("0"))
+            holder.iconFav.setImageResource(R.drawable.ic_star_black_24dp);
+        else
+            holder.iconFav.setImageResource(R.drawable.ic_star_border_black_24dp);
         holder.accountContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +110,21 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
                 AlertDialog b= dialogBuilder.create();
                 b.show();
                 return false;
+            }
+        });
+        holder.iconFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String clickedAccount = accountsFiltered.get(position).getmAccountName();
+                if (!accountsFiltered.get(position).getmFav().equals("0")){
+                    if (passwordDatabase.setFavorite(clickedAccount, "0") == 1)
+                        accountsFiltered.get(position).setmFav("0");
+                }
+                else{
+                    if (passwordDatabase.setFavorite(clickedAccount, "1") == 1)
+                        accountsFiltered.get(position).setmFav("1");
+                }
+                notifyDataSetChanged();
             }
         });
     }
@@ -180,12 +198,15 @@ public class PasswordRecyclerViewAdapter extends RecyclerView.Adapter<PasswordRe
         TextView iconText;
         @BindView(R.id.icon_bg)
         ImageView iconBg;
+        @BindView(R.id.icon_fav)
+        ImageView iconFav;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             ButterKnife.bind(this,itemView);
 
-           itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // send selected contact in callback

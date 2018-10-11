@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.nitsilchar.hp.passwordStorage.model.Accounts;
@@ -33,6 +31,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRIPTION = "Description";
     public static final String COLUMN_LINK = "Link";
     public static final String COLUMN_PHOTO = "Photo";
+    public static final String COLUMN_FAV = "Favorite";
     public static final String ID = "id";
     public static final String PHOTO_TABLE = "Profile";
 
@@ -44,7 +43,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
 
     private static final String TABLE_CREATE = "CREATE TABLE "
             + TABLE_NAME + " (" +  COLUMN_ACCOUNT  + " TEXT, " + COLUMN_PASSWORD
-            + " TEXT, " + COLUMN_LINK + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
+            + " TEXT, " + COLUMN_LINK + " TEXT, " + COLUMN_FAV + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,UNIQUE("+ COLUMN_ACCOUNT + "));";
 
     private static final String DATABASE_ALTER_CREDENTIALS_DESCR = "ALTER TABLE "
             + TABLE_NAME + " ADD COLUMN " + COLUMN_DESCRIPTION + " TEXT;";
@@ -66,6 +65,9 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
         db.execSQL(CREATE_PHOTO_TABLE);
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null
+        , null);
+        String[] names = cursor.getColumnNames();
     }
 
     @Override
@@ -88,7 +90,7 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
         onUpgrade(db, oldVersion, newVersion);
     }
-    public void addCredentials(Context context,String account, String password, String description, String link){
+    public void addCredentials(Context context,String account, String password, String description, String link, String fav){
         SQLiteDatabase db = this.getWritableDatabase();
         long newRowId=0;
         Boolean flag=false;
@@ -96,8 +98,9 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_ACCOUNT, account);
         values.put(COLUMN_PASSWORD, password);
         values.put(COLUMN_DESCRIPTION, description);
+        values.put(COLUMN_FAV, fav);
         values.put(COLUMN_LINK, link);
-            newRowId = db.insert(TABLE_NAME, null, values);
+        newRowId = db.insert(TABLE_NAME, null, values);
     }
 
     public void deleteRow(String account){
@@ -122,6 +125,18 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
         String[] whereArgs=new String[]{account};
         int update=db.update(TABLE_NAME,contentValues,whereClause,whereArgs);
         return update;
+    }
+
+    public int setFavorite(String account, String val){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_FAV, val);
+        String whereClause = COLUMN_ACCOUNT + " =?";
+        String[] whereArgs = new String[]{account};
+        int update = db.update(TABLE_NAME, contentValues, whereClause, whereArgs);
+        return update;
+
     }
 
     public void deleteAllCredentials(){
@@ -213,7 +228,8 @@ public final class PasswordDatabase extends SQLiteOpenHelper {
                         String pass = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
                         String description = c.getString(c.getColumnIndex(COLUMN_DESCRIPTION));
                         String link =  c.getString(c.getColumnIndex(COLUMN_LINK));
-                        accountData.add(new Accounts(account, pass, description, link));
+                        String fav = c.getString(c.getColumnIndex(COLUMN_FAV));
+                        accountData.add(new Accounts(account, pass, description, link, fav));
                     }
                     while (c.moveToNext());
                 }
