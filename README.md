@@ -11,7 +11,7 @@ Then Password Storage is your solution! It stores the passwords of all the websi
 
 ---
 ## Description
-Sign up with your email id and a password which will be your "master password". For verification, an email will be sent to your email id with a link for verification. You can add passwords with their description and whenever you want to access these password you just have to remember the master password. 
+Sign up with your email id and a password which will be your "Master password". For verification, an email will be sent to your email id with a link for verification. You can add passwords with their description and whenever you want to access these password you just have to remember the master password. 
 
 
 ---
