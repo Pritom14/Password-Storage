@@ -11,7 +11,7 @@ Then Password Storage is your solution! It stores the passwords of all the websi
 
 ---
 ## Description
-Sign up with your email id and a password which will be your "Master password". </br>For verification, an email will be sent to your email id with a link for verification. You can add passwords with their description and whenever you want to access these password you just have to remember the master password. 
+Sign up with your email id and a password which will be your <b><i>"Master password".</i></b> </br>For verification, an email will be sent to your email id with a link for verification. You can add passwords with their description and whenever you want to access these password you just have to remember the master password. 
 
 
 ---
@@ -23,7 +23,7 @@ Sign up with your email id and a password which will be your "Master password". 
 ---
 
 
-## How to Contribute
+<h3>## How to Contribute</h3>
 This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests by submitting pull requests as well. </br>Please report issues here https://github.com/Pritom14/Password-Storage/issues
 
 ---
