@@ -3,7 +3,7 @@
 <a href='https://play.google.com/store/apps/details?id=com.nitsilchar.hp.passwordStorage' target='_blank' align="right"><img align="right" height='36' src='https://s20.postimg.org/muzx3w4jh/google_play_badge.png' /></a>
 # Password Storage
 
-Annoyed of forgetting your passwords for important websites? <\br>
+Annoyed of forgetting your passwords for important websites? </br>
 Do you want a secure way of saving all of them in one place instead of writing them down on a sheet of paper?
 Then Password Storage is your solution! It stores the passwords of all the websites where you have an account, so you have a secure storage of your passwords and you only have to remember your master password in order to enter the app.
 
